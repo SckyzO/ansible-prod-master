@@ -1,0 +1,6 @@
+---
+#monitor_base_path: /opt/monitor
+kube_state_metrics_directory_name: kube_state_metrics
+kube_state_metrics_manifest_directory: '{{ kube_state_metrics_directory_name }}/kubernetes'
+kube_state_metrics_yaml_files: '{{ monitor_base_path }}/{{ kube_state_metrics_manifest_directory }}'
+kube_state_metrics_directory: '{{ monitor_base_path }}/{{ kube_state_metrics_directory_name }}'

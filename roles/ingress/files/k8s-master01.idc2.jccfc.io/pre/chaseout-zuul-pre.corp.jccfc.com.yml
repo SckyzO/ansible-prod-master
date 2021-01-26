@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chaseout-zuul-pre
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+spec:
+  rules:
+  - host: chaseout-zuul-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: chaseout-zuul
+          servicePort: 8080
+

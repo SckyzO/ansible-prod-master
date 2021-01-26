@@ -1,0 +1,18 @@
+---
+- name: Started dingtalk contailner.
+  docker_container:
+    name: "{{ dingtalk_container_name }}"
+    state: started
+  when: operate == "start"
+
+- name: Stop dingtalk contailner.
+  docker_container:
+    name: "{{ dingtalk_container_name }}"
+    state: stopped
+  when: operate == "stop"
+  
+- name: Delete dingtalk contailner.
+  docker_container:
+    name: "{{ dingtalk_container_name }}"
+    state: absent
+  when: operate == "delete"

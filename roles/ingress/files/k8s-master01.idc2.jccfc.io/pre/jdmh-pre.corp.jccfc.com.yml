@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jdmh
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: jdmh-pre.corp.triThirty.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jdmh
+          servicePort: 8080

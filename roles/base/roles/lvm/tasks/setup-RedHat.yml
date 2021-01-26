@@ -1,0 +1,32 @@
+---
+- name: Install lvm2.
+  yum:
+    name:
+      - lvm2
+    state: present
+
+- name: Create data volume group.
+  lvg:
+    vg: "{{ lvm_vg }}"
+    pvs: "{{ lvm_pvs }}"
+    pesize: "32"
+
+- name: create opt logical volume the size of all remaining space in the volume group.
+  lvol:
+    vg: "{{ lvm_vg }}"
+    lv: "{{ lvm_lv }}"
+    size: 100%FREE
+
+- name:  Create a xfs filesystem on /dev/sdb1.
+  filesystem:
+    fstype: xfs
+    dev: "/dev/{{ lvm_vg }}/{{ lvm_lv }}"
+
+- name: Mount up device by UUID.
+  mount:
+    path: "/{{ lvm_lv }}"
+    #path: "/{{ lvm_vg }}/{{ lvm_lv }}"
+    src: "/dev/{{ lvm_vg }}/{{ lvm_lv }}"
+    fstype: xfs
+    state: mounted
+

@@ -1,0 +1,7 @@
+---
+- name: Prevent NetworkManager Overwriting /etc/resolv.conf
+  copy:
+    src: NetworkManager.conf
+    dest: /etc/NetworkManager/NetworkManager.conf
+    mode: 0644
+  notify: restart NetworkManager

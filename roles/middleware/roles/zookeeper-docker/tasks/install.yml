@@ -1,0 +1,22 @@
+---
+- include: config.yml
+
+- name: Running zookeeper container.
+  docker_container:
+    name: "{{ zookeeper_container_name }}"
+    image: "{{ zookeeper_image_url }}"
+    hostname: "{{ inventory_hostname }}"
+    network_mode: "{{ zookeeper_container_network }}"
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - "{{ zookeeper_base_path }}/conf:/conf"
+      - "{{ zookeeper_base_path }}/data:/data"
+      - "{{ zookeeper_base_path }}/logs:/datalog"
+    env:
+      ZOO_MY_ID: "{{ myid|int }}"
+      ZOO_SERVERS: "server.1={{ zookeeper_server1 }}:{{zookeeper_port2}}:{{zookeeper_port3}};{{zookeeper_port1}} server.2={{ zookeeper_server2 }}:{{zookeeper_port2}}:{{zookeeper_port3}};{{zookeeper_port1}} server.3={{ zookeeper_server3 }}:{{zookeeper_port2}}:{{zookeeper_port3}};{{zookeeper_port1}}"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cmdb
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#    nginx.ingress.kubernetes.io/app-root: /index.html
+spec:
+  tls:
+  - hosts:
+    - cmdb.corp.triThirty.com
+    secretName: corp.triThirty.com
+  rules:
+  - host: cmdb.corp.triThirty.com
+    http:
+      paths: 
+      - path: /jc/ 
+        backend:
+          serviceName: cmdb
+          servicePort: 8080
+      - path: /
+        backend:
+          serviceName: cmdb-fe
+          servicePort: 80

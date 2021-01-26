@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: router
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+#    nginx.ingress.kubernetes.io/rewrite-target: "/"
+spec:
+  tls:
+  - hosts:
+    - router.triThirty.com
+    secretName: triThirty.com
+  rules:
+  - host: router.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: router
+          servicePort: 8080

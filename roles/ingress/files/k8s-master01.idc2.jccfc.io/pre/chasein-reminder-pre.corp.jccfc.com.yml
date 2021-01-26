@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chasein-reminder-pre
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+spec:
+  rules:
+  - host: chasein-reminder-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: chasein-reminder
+          servicePort: 8080
+

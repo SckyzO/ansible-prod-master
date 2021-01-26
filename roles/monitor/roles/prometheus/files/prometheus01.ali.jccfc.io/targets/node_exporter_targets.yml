@@ -1,0 +1,39 @@
+#- labels:
+#    env: test
+#    idc: idc1
+#  targets:
+#    - testserver.io
+
+- labels:
+    env: prod
+    idc: idc1
+  targets:
+    - 10.10.1.188
+    - 10.10.1.189
+
+- labels:
+    env: prod
+    idc: idc1
+    cluster: rac
+  targets:
+    - 10.10.8.42
+    - 10.10.8.43
+    - 10.10.8.44
+    - 10.10.8.45
+    - 10.10.8.46
+    - 10.10.8.48
+
+- labels:
+    env: prod
+    idc: idc1
+    cluster: smartbi
+  targets:
+    - 10.10.8.110
+
+- labels:
+    env: prod
+    idc: acc
+  targets:
+    - 3.0.0.35
+    - 3.0.0.36
+

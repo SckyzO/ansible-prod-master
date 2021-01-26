@@ -1,0 +1,8 @@
+---
+- name: Set /etc/profile.d/docker_status.sh
+  copy:
+    src: '{{ item }}'
+    dest: '/etc/profile.d/{{ item }}'
+    mode: 0644
+  with_items:
+    - docker_status.sh

@@ -1,0 +1,46 @@
+---
+- name: Ensure grafana path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: 65534
+    group: 65534
+    mode: 0755
+  with_items:
+    - "{{ grafana_conf_path }}"
+    - "{{ grafana_conf_path }}/provisioning"
+    - "{{ grafana_data_path }}"
+    - "{{ grafana_data_path }}/data"
+    - "{{ grafana_data_path }}/plugins"
+    - "{{ grafana_data_path }}/log"
+
+- name: Ensure grafana.yml exists.
+  copy:
+    src: "{{ grafana_default_conf_file }}"
+    dest: "{{ grafana_conf_path }}/grafana.ini"
+    owner: 65534
+    group: 65534
+    mode: 0644
+
+- name: Running grafana container.
+  docker_container:
+    name: "{{ grafana_container_name }}"
+    image: "{{ grafana_image_url }}"
+    user: "65534"
+    ports:
+    - "3000:3000"
+    volumes:
+    - "{{ grafana_conf_path }}:/etc/grafana"
+    - "{{ grafana_data_path }}:/grafana"
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    env:
+      GF_PATHS_CONFIG: "/etc/grafana/grafana.ini"
+      GF_PATHS_DATA: "/grafana/data"
+      GF_PATHS_LOGS: "/grafana/log"
+      GF_PATHS_PLUGINS: "/grafana/plugins"
+      GF_PATHS_PROVISIONING: "/etc/grafana/provisioning"
+      #GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes

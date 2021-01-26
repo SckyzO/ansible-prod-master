@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ucentercallback
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - ucentercallback-api.triThirty.com
+    secretName: triThirty.com
+  rules:
+  - host: ucentercallback-api.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: ucentercallback
+          servicePort: 8080

@@ -1,0 +1,37 @@
+---
+- name: Add Filebeat package.
+  copy:
+    src: "{{ filebeat_package_path }}/{{ filebeat_package_name }}"
+    dest: /tmp/{{ filebeat_package_name }}
+    mode: 0755
+
+- name: Install Filebeat.
+  package:
+    name: /tmp/{{ filebeat_package_name }}
+    state: present
+
+- name: Ensure Filebeat is started and enabled at boot.
+  systemd:
+    name: filebeat
+    daemon_reload: true
+    state: started
+    enabled: yes
+
+- name: Ensures Filebeat systemd config dir exists.
+  file:
+    path: /etc/systemd/system/filebeat.service.d
+    state: directory
+    mode: 0755
+
+- name: Manage Filebeat systemd configs.
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: 'debug.conf', dest: '/etc/systemd/system/filebeat.service.d/debug.conf' }
+  notify: restart filebeat
+
+- include: config.yml

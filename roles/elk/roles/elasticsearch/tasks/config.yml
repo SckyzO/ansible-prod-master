@@ -1,0 +1,21 @@
+---
+- name: Ensures conf.d dir exists.
+  file:
+    path: /etc/elasticsearch
+    owner: root
+    group: elasticsearch
+    state: directory
+    mode: 0755
+
+- name: Manage elasticsearch main configs.
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  with_items:
+    - { src: 'elasticsearch.yml.j2', dest: '/etc/elasticsearch/elasticsearch.yml' }
+    - { src: 'jvm.options.j2', dest: '/etc/elasticsearch/jvm.options' }
+  #notify: restart elasticsearch
+

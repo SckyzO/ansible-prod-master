@@ -1,0 +1,65 @@
+#- labels:
+#    env: prod
+#    routername: 西信DB区交换机
+#  targets:
+#     - 9.0.2.1
+#
+#- labels:
+#    env: prod
+#    routername: 西信Web区交换机
+#  targets:
+#     - 9.0.3.1
+#
+#- labels:
+#    env: prod
+#    routername: 西信Front区交换机
+#  targets:
+#     - 9.0.4.1
+#
+#- labels:
+#    env: prod
+#    routername: 西信DMZ区交换机
+#  targets:
+#     - 9.0.1.1
+#
+#- labels:
+#    env: prod
+#    routername: 西信核心交换机
+#  targets:
+#     - 9.0.3.2
+
+#- labels:
+#    env: prod
+#    routername: 西信出口路由器
+#  targets:
+#    - 182.131.18.18
+#
+#- labels:
+#    env: prod
+#    routername: 西信WAN区防火墙
+#  targets:
+#    - 13.13.13.14
+#
+#- labels:
+#    env: prod
+#    routername: 西信DMZ区防火墙
+#  targets:
+#    - 13.13.13.11
+#
+#- labels:
+#    env: prod
+#    routername: 西信DB区防火墙
+#  targets:
+#    - 13.13.13.3
+#
+#- labels:
+#    env: prod
+#    routername: 西信WEB区防火墙
+#  targets:
+#    - 13.13.13.6
+#
+#- labels:
+#    env: prod
+#    routername: 西信Front区防火墙
+#  targets:
+#    - 13.13.13.9

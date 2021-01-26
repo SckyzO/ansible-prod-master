@@ -1,0 +1,9 @@
+cluster.name: {{ elasticsearch_cluster_name }}
+node.name: {{ ansible_default_ipv4.address }}
+path.data: {{ elasticsearch_data_path }} 
+path.logs: {{ elasticsearch_log_path }}
+http.port: {{ elasticsearch_http_port }}
+network.host: ["_local_", "_site_"]
+bootstrap.memory_lock: true
+discovery.seed_hosts: {{ elasticsearch_discovery_hosts }}
+cluster.initial_master_nodes: {{ elasticsearch_master_nodes }}

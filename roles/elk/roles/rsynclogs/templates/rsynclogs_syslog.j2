@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rsyncserver_host={{ rsyncserver_ip }}
+rsyncserver_port={{ rsyncserver_port }}
+rsyncserver_user={{ rsyncserver_user }}
+logs_path={{ sys_logs_path }}
+
+echo `date`
+sleep $[$RANDOM%180+1]
+
+/usr/bin/rsync -av --port=${rsyncserver_port} --bwlimit=300000 --include=message* --include=secure* --include=cron* --include=boot.log* --include=wtmp* --include=yum* --include=dmesg* --include=btmp* --exclude=* ${logs_path} ${rsyncserver_user}@${rsyncserver_host}::syslogbackup/{{ inventory_hostname }}/
+

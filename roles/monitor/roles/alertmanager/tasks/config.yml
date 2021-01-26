@@ -1,0 +1,32 @@
+---
+#- name: Manager alertmanager configs.
+#  synchronize:
+#    src: "{{ alertmanager_source_config_path }}"
+#    dest: "{{ monitor_base_path }}"
+#    mode: push
+#    recursive: yes
+#    delete: yes
+#  notify: reload alertmanager
+
+- name: Ensure alertmanager templates dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - "{{ alertmanager_conf_path }}/templates"
+    
+- name: Manager alertmanager configs.
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: "alertmanager.yml", dest: "{{ alertmanager_conf_path }}/alertmanager.yml" }
+    - { src: "templates/default.tmpl", dest: "{{ alertmanager_conf_path }}/templates/default.tmpl" }
+    - { src: "templates/email.tmpl", dest: "{{ alertmanager_conf_path }}/templates/email.tmpl" }
+  notify: reload alertmanager

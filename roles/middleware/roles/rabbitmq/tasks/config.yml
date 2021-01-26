@@ -1,0 +1,13 @@
+---
+- name: Ensure rabbitmq data dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ rabbitmq_user }}"
+    group: "{{ rabbitmq_group }}"
+    mode: 0755
+  with_items:
+    - "{{ rabbitmq_base_path }}/data"
+    - "{{ rabbitmq_base_path }}/conf"
+    - "{{ rabbitmq_base_path }}/logs"
+

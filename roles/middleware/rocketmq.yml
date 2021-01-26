@@ -1,0 +1,7 @@
+---
+#
+# Rocketmq
+#
+- hosts: "{{ host }}"
+  roles:
+    - rocketmq

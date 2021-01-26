@@ -1,0 +1,21 @@
+---
+- include: config.yml
+
+- name: Running redis container.
+  docker_container:
+    name: "{{ redis_container_name }}"
+    image: "{{ redis_image_url }}"
+    hostname: "{{ inventory_hostname }}"
+    ports:
+    - "{{ redis_port }}:6379"
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - "{{ redis_base_path }}/conf:/conf"
+      - "{{ redis_base_path }}/data:/data"
+    command:
+    - "--requirepass {{ redis_passwd }}"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

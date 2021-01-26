@@ -1,0 +1,18 @@
+---
+# cluster
+appid: topcardweb
+redis_env: pre
+redis_master: '192.168.113.24'
+redis_port: '16399'
+redis_passwd: j9KRiy43Bfv9RVF5
+redis_container_name: redis_{{ appid }}_{{ redis_env }}
+redis_base_path: /opt/redis/{{ redis_container_name }}
+redis_image_url: redis:4.0.14-alpine
+redis_user: 999
+redis_group: 1000
+owner: 'topcardweb'
+describe: '原3.0.0.32'
+
+# sentinel
+sentinel_port: '26379'
+sentinel_container_name: sentinel_{{ appid }}_{{ env }}

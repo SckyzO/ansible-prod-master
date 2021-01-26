@@ -1,0 +1,3 @@
+---
+cadvisor_image_url: google/cadvisor:v0.33.0
+cadvisor_container_name: cadvisor

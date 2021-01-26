@@ -1,0 +1,46 @@
+#!/usr/bin/expect
+
+set timeout 10
+set rsyncserver_ip {{ rsyncserver_ip }}
+set rsyncserver_port  {{ rsyncserver_port }}
+set rsyncserver_user {{ rsyncserver_user }}
+set rsyncserver_pass {{ rsyncserver_pass }}
+
+set logs_path {{ logs_path }}
+
+set inputYes 0
+
+exec sh -c {echo date}
+
+spawn /usr/bin/rsync -av --port=${rsyncserver_port} --bwlimit=300000 --exclude "*.hprof" ${logs_path} ${rsyncserver_user}@${rsyncserver_ip}::logsbackup/{{ hostname }}
+expect {
+    -nocase -re "yes/no" {
+        send -- "yes\r"
+        set inputYes 1
+    }
+    -nocase -re "assword: " {
+        send -- "${rsyncserver_pass}\r"
+        #interact
+        expect eof
+        exit
+    }
+    -nocase -re "Connection refused" {
+        send_error "rsync services at ${rsyncserver_ip} is not active.\n"
+        exit 2
+    }
+    timeout {
+        send_error "Connect to rsync server ${rsyncserver_user}@${rsyncserver_ip} timeout(10s).\n"
+        exit 8
+    }
+}
+
+if {$inputYes==1} {
+    expect {
+        -nocase -re "assword: " {
+            send -- "${rsyncserver_pass}\r"
+            #interact
+            expect eof
+            exit
+		}
+    }
+}

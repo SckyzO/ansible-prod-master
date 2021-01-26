@@ -1,0 +1,30 @@
+---
+#- name: Add kafka package.
+#  copy:
+#    src: /srv/ansible/files/kafka/{{ kafka_package_name }}
+#    dest: /tmp/{{ kafka_package_name }}
+#    mode: 0755
+
+- name: Unarchive kafka package.
+  unarchive:
+    src: /srv/ansible/files/kafka/{{ kafka_package_name }}
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Link kafka path to /opt/kafka
+  file:
+    src: /opt/{{ kafka_unarchive_path }}
+    dest: /opt/kafka
+    owner: root
+    group: root
+    state: link
+
+- name: Add kafka to PATH.
+  shell: export PATH=$PATH:/opt/kafka/bin
+
+- include: config.yml
+
+#- name: start kafka
+#  shell: /opt/kafka/bin/zkServer.sh start

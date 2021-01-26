@@ -1,0 +1,11 @@
+---
+- name: Ensure consul data dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0755
+  with_items:
+    - "{{ consul_base_path }}/data"
+    - "{{ consul_base_path }}/conf"

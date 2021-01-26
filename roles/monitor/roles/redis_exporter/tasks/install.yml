@@ -1,0 +1,16 @@
+---
+- include: config.yml
+
+- name: Running redis_exporter container.
+  docker_container:
+    name: "{{ redis_container_name }}"
+    image: "{{ redis_image_url }}"
+    ports:
+    - "{{ redis_port }}:{{ redis_port }}"
+    volumes:
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

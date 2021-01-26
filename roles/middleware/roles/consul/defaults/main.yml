@@ -1,0 +1,8 @@
+---
+consul_image_url: consul:1.6.1
+consul_container_name: consul-dev
+consul_container_network: host
+consul_base_path: /opt/consul-dev
+consul_user: root
+consul_group: root
+#consul_bind_interface: eth0

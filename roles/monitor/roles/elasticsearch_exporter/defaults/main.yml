@@ -1,0 +1,4 @@
+---
+elasticsearch_container_name: elasticsearch_exporter
+elasticsearch_image_url: harbor.corp.triThirty.com/monitor/elasticsearch_exporter:1.0.2
+elasticsearch_cluster_url: http://es01.idc2.triThirty.io:9200

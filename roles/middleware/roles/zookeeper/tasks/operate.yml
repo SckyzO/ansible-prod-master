@@ -1,0 +1,16 @@
+---
+- name: start zookeeper
+  shell: /opt/zookeeper/bin/zkServer.sh start
+  when: operate == "start"
+
+- name: stop zookeeper
+  shell: /opt/zookeeper/bin/zkServer.sh stop
+  when: operate == "stop"
+
+- name: restart zookeeper
+  shell: /opt/zookeeper/bin/zkServer.sh restart
+  when: operate == "restart"
+
+- name: status zookeeper
+  shell: /opt/zookeeper/bin/zkServer.sh status
+  when: operate == "status"

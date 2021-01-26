@@ -1,0 +1,17 @@
+---
+#
+# install elasticsearch
+#
+#- name: Check elasticsearch is installed or not.
+#  shell: rpm -qa | grep elasticsearch
+#  ignore_errors: True
+#  register: result
+#  when: ansible_os_family == 'RedHat'
+
+- include: setup-RedHat.yml
+  when: operate == "install"
+
+- include: config.yml
+  when: operate == "update"
+
+- include: operate.yml

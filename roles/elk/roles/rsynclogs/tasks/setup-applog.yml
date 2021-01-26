@@ -1,0 +1,50 @@
+---
+- name: Install dependencies。
+  yum:
+    name:
+      - rsync
+      - expect
+    state: present
+
+- name: Install rsynclogs.
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - { src: 'rsynclogs.j2', dest: '/usr/bin/rsynclogs' }
+    - { src: 'cleanExpireLogs.j2', dest: '/usr/bin/cleanExpireLogs' }
+
+- name: Create crontab job.
+  cron:
+    minute: "*/30"
+    name: "add rsynclogs"
+    job: "/usr/bin/rsynclogs >> /tmp/rsynclogs.log 2>&1"
+
+- name: Create crontab job.
+  cron:
+    minute: "*/30"
+    name: "add cleanExpireLogs"
+    job: "/usr/bin/cleanExpireLogs >> /tmp/cleanExpireLogs.log 2>&1"
+
+#- name: Create crontab job.
+#  cron:
+#    name: "add rsynclogs 0s"
+#    job: "/usr/bin/rsynclogs >> /tmp/rsynclogs.log 2>&1"
+#
+#- name: Create crontab job.
+#  cron:
+#    name: "add rsynclogs 30s"
+#    job: "sleep 30; /usr/bin/rsynclogs >> /tmp/rsynclogs.log 2>&1"
+
+#- name: Removes a cron 
+#  cron:
+#    name: "add rsynclogs 0s"
+#    state: absent
+#
+#- name: Removes a cron 
+#  cron:
+#    name: "add rsynclogs 30s"
+#    state: absent

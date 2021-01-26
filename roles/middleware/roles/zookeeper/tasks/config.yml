@@ -1,0 +1,32 @@
+---
+- name: Ensure zookeeper data & log path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - "{{ zookeeper_data_path }}"
+
+- name: Configure zookeeper myid.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: "myid.j2", dest: "{{ zookeeper_data_path }}/myid" }
+    - { src: "zoo.cfg.j2", dest: "/opt/zookeeper/conf/zoo.cfg" }
+
+- name: Configure zookeeper jmx-expoerter for prometheus.
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: "zookeeper-env.sh", dest: "/opt/zookeeper/conf/zookeeper-env.sh" }
+    - { src: "jmx_zookeeper.yml", dest: "/opt/monitor/jmx_exporter/zookeeper.yml" }

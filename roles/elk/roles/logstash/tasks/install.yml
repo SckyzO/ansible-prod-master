@@ -1,0 +1,108 @@
+---
+- include: config.yml
+
+- name: Ensure logstash log path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0755
+  with_items:
+    - /opt/logstash/logs/rpc-access
+    - /opt/logstash/logs/api-access
+    - /opt/logstash/logs/app
+    - /opt/logstash/logs/nginx
+    - /opt/logstash/logs/monitor
+
+- name: Running logstash_indexer_rpc-access.
+  docker_container:
+    name: "logstash_indexer_rpc-access"
+    image: "{{ logstash_image_url }}"
+    volumes:
+    - "{{ logstash_conf_path }}:/usr/share/logstash/config"
+    - "{{ logstash_pipeline_path }}/logstash_indexer_rpc-access.conf:/usr/share/logstash/pipeline/logstash.conf"
+    - /opt/logstash/logs/rpc-access:/usr/share/logstash/logs
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.reload.automatic"
+    - "--config.reload.interval 10s"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+- name: Running logstash_indexer_api-access.
+  docker_container:
+    name: "logstash_indexer_api-access"
+    image: "{{ logstash_image_url }}"
+    volumes:
+    - "{{ logstash_conf_path }}:/usr/share/logstash/config"
+    - "{{ logstash_pipeline_path }}/logstash_indexer_api-access.conf:/usr/share/logstash/pipeline/logstash.conf"
+    - /opt/logstash/logs/api-access:/usr/share/logstash/logs
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.reload.automatic"
+    - "--config.reload.interval 10s"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+- name: Running logstash_indexer_app.
+  docker_container:
+    name: "logstash_indexer_app"
+    image: "{{ logstash_image_url }}"
+    volumes:
+    - "{{ logstash_conf_path }}:/usr/share/logstash/config"
+    - "{{ logstash_pipeline_path }}/logstash_indexer_app.conf:/usr/share/logstash/pipeline/logstash.conf"
+    - /opt/logstash/logs/app:/usr/share/logstash/logs
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.reload.automatic"
+    - "--config.reload.interval 10s"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+- name: Running logstash_indexer_nginx.
+  docker_container:
+    name: "logstash_indexer_nginx"
+    image: "{{ logstash_image_url }}"
+    volumes:
+    - "{{ logstash_conf_path }}:/usr/share/logstash/config"
+    - "{{ logstash_pipeline_path }}/logstash_indexer_nginx.conf:/usr/share/logstash/pipeline/logstash.conf"
+    - /opt/logstash/logs/nginx:/usr/share/logstash/logs
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.reload.automatic"
+    - "--config.reload.interval 10s"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+- name: Running logstash_indexer_monitor.
+  docker_container:
+    name: "logstash_indexer_monitor"
+    image: "{{ logstash_image_url }}"
+    volumes:
+    - "{{ logstash_conf_path }}:/usr/share/logstash/config"
+    - "{{ logstash_pipeline_path }}/logstash_indexer_monitor.conf:/usr/share/logstash/pipeline/logstash.conf"
+    - /opt/logstash/logs/monitor:/usr/share/logstash/logs
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.reload.automatic"
+    - "--config.reload.interval 10s"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+#- name: Chmod /usr/share/logstash/pipeline/logstash.conf
+#  shell: |
+#    docker exec logstash_indexer_rpc-access bash -l -c "chmod 644 /usr/share/logstash/pipeline/logstash.conf"
+#    docker exec logstash_indexer_api-access bash -l -c "chmod 644 /usr/share/logstash/pipeline/logstash.conf"
+#    docker exec logstash_indexer_app bash -l -c "chmod 644 /usr/share/logstash/pipeline/logstash.conf"
+#    docker exec logstash_indexer_nginx bash -l -c "chmod 644 /usr/share/logstash/pipeline/logstash.conf"

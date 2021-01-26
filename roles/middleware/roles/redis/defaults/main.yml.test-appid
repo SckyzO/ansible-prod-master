@@ -1,0 +1,11 @@
+---
+appid: test-appid
+redis_env: dev
+redis_port: '16319'
+redis_passwd: XfzXBn3ug8yicH3C
+redis_image_url: redis:4.0.14-alpine
+redis_container_name: redis_{{ appid }}_{{ redis_env }}
+redis_base_path: /opt/redis/{{ redis_container_name }}
+redis_user: root
+redis_group: root
+

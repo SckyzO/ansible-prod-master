@@ -1,0 +1,34 @@
+---
+- name: Ensure kafka data & log path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - "{{ kafka_data_path }}"
+    - "/opt/monitor/jmx-exporter"
+
+- name: Configure kafka.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - { src: "server.properties.j2", dest: "/opt/kafka/config/server.properties" }
+    - { src: "kafka-server-start.sh.j2", dest: "/opt/kafka/bin/kafka-server-start.sh" }
+
+- name: Configure kafka jmx-expoerter for prometheus.
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: "jmx_kafka.yml", dest: "/opt/monitor/jmx-exporter/kafka.yml" }
+    - { src: "/srv/ansible/files/jmx-exporter/jmx_prometheus_javaagent-0.11.0.jar", dest: "/opt/monitor/jmx-exporter/jmx_prometheus_javaagent-0.11.0.jar" }
+

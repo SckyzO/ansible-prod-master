@@ -1,0 +1,30 @@
+---
+- name: Ensure config dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ ingress_base_path }}/pre"
+    - "{{ ingress_base_path }}/prod"
+
+- name: Manage ingress pre config files.
+  synchronize:
+    src: "{{ inventory_hostname }}/pre"
+    dest: /etc/ingress
+    mode: push
+    recursive: yes
+    delete: yes
+  notify: applay ingress pre
+
+- name: Manage ingress prod config files.
+  synchronize:
+    src: "{{ inventory_hostname }}/prod"
+    dest: /etc/ingress
+    mode: push
+    recursive: yes
+    delete: yes
+  notify: applay ingress prod
+
+#- name: show debug info
+#  debug: var=ingress_source_config_path,dest_config_path

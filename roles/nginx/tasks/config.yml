@@ -1,0 +1,9 @@
+---
+- name: Manage nginx config files.
+  synchronize:
+    src: "{{ inventory_hostname }}/"
+    dest: /etc/nginx/
+    mode: push
+    recursive: yes
+    delete: yes
+  notify: reload nginx

@@ -1,0 +1,6 @@
+---
+- include: setup-applog.yml
+  when: operate == 'applog'
+
+- include: setup-syslog.yml
+  when: operate == 'syslog'

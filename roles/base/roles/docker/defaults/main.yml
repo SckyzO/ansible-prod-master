@@ -1,0 +1,2 @@
+docker_version: docker-ce-18.06.3.ce-3.el7
+harbor_server: harbor.corp.triThirty.com

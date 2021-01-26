@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rsyncserver_host={{ rsyncserver_ip }}
+rsyncserver_port={{ rsyncserver_port }}
+logs_path={{ app_logs_path }}
+
+echo `date`
+sleep $[$RANDOM%499+1]
+sleep $[$RANDOM%499+1]
+
+/usr/bin/rsync -av --port=${rsyncserver_port} --bwlimit=300000 --exclude "*.hprof" ${logs_path} ${rsyncserver_user}@${rsyncserver_host}::logsbackup/{{ inventory_hostname }}/
+

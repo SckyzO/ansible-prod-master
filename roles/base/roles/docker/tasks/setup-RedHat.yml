@@ -1,0 +1,69 @@
+---
+- name: Remove old versions of docker.
+  yum:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+      - docker-engine-selinux
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+    state: absent
+
+#- name: Setup aliyun repository.
+#  shell: yum-config-manager \
+#    --add-repo \
+#    http://mirrors.aliyun.com/repo/Centos-7.repo
+
+- name: Setup docker-ce stable repository
+  shell: yum-config-manager \
+    --add-repo \
+    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+- name: Install required packages of docker.
+  yum:
+    name:
+      - python-pip
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+    state: latest
+
+- name: Pip install docker for ansible.
+  pip:
+    name: docker
+
+- name: Install {{ docker_version }}.
+  yum:
+    name:
+      - "{{ docker_version }}"
+      - epel-release
+      - bash-completion-extras
+      - bash-argsparse
+      - bash-completion
+      - bash-doc
+    state: latest
+
+- name: Ensure docker is started and enabled at boot.
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Configfile docker daemon.
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    mode: 0644
+
+- name: restart docker.
+  service:
+    name: docker
+    state: restarted
+

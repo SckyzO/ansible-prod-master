@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mopenapi
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - mopenapi.triThirty.com
+    secretName: triThirty.com
+  rules:
+  - host: mopenapi.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: mopenapi
+          servicePort: 8080

@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dy-fe
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - dy-pre.corp.triThirty.com
+    secretName: corp.triThirty.com
+  rules:
+  - host: dy-pre.corp.triThirty.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: dy-fe
+          servicePort: 80
+      - path: /jc
+        backend:
+          serviceName: loan-admin
+          servicePort: 8080

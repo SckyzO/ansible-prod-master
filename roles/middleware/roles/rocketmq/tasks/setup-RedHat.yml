@@ -1,0 +1,46 @@
+---
+- name: Ensure rocketmq path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ rocketmq_user }}"
+    group: "{{ rocketmq_group }}"
+    mode: 0755
+  with_items:
+    - "{{ rocketmq_unarchive_path }}"
+    - "{{ rocketmq_log_path }}"
+    - "{{ rocketmq_store_root_path }}/namesrv"
+    - "{{ rocketmq_store_root_path }}/data-m"
+    - "{{ rocketmq_store_root_path }}/data-s"
+
+- name: Unarchive rocketmq package.
+  unarchive:
+    src: "{{ rocketmq_package_path }}/{{ rocketmq_package_name }}"
+    dest: "{{ rocketmq_unarchive_path }}"
+    owner: "{{ rocketmq_user }}"
+    group: "{{ rocketmq_group }}"
+    mode: 0755
+
+- name: Link rocketmq path to /opt/rocketmq
+  file:
+    src: "{{ rocketmq_unarchive_path }}"
+    dest: /opt/rocketmq
+    owner: "{{ rocketmq_user }}"
+    group: "{{ rocketmq_group }}"
+    state: link
+
+- name: Manage rocketmq-nameserver.service.
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: '{{ rocketmq_user }}'
+    group: '{{ rocketmq_group }}'
+    mode: 0644
+  with_items:
+    - { src: 'rocketmq-nameserver.service.j2', dest: '/etc/systemd/system/rocketmq-nameserver.service' }
+
+- name: Start nameserver
+  systemd:
+    name: rocketmq-nameserver
+    state: started
+    daemon_reload: yes

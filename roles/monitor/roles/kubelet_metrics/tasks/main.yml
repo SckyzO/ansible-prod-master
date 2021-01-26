@@ -1,0 +1,15 @@
+---
+- include: install.yml
+  when: operate == "install"
+
+- include: delete.yml
+  when: operate == "delete"
+
+- include: apply.yml
+  when: operate == "apply"
+
+- include: get_token.yml
+  when: operate == "get"
+
+- include: push_token_to_target.yml
+  when: operate == "push"

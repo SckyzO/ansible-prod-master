@@ -1,0 +1,9 @@
+- name: Synchronize kube-state-metrics yaml files
+  synchronize:
+    src: "kubernetes"
+    dest: "{{ kube_state_metrics_directory }}"
+    mode: push
+    recursive: yes
+    delete: yes
+  notify:
+    - Apply kube-state-metrics yaml

@@ -1,0 +1,21 @@
+groups:
+- name: elasticsearchExporterAlerts
+  rules:
+  - alert: EsClusterUnhealthy
+    expr: elasticsearch_cluster_health_status{color="red"}==1 or elasticsearch_cluster_health_status{color="yellow"}==1
+    for: 5m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "Elasticsearch cluster status unhealthy"
+      description: "Cluster {{ $labels.cluster }} status unhealthy (current: {{ $labels.color }})"
+  - alert: EsHeapUsageHigh
+    expr: floor(100*elasticsearch_jvm_memory_used_bytes{area="heap"}/elasticsearch_jvm_memory_max_bytes{area="heap"})>90
+    for: 15m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "Elasticsearch heap usage is over 90% for 15 minutes"
+      description: "Node {{ $labels.name }} heap usage is over 90% for 15 minutes (current: {{ $value }}%)"

@@ -1,0 +1,7 @@
+---
+#grafana_image_url: harbor-ali.triThirty.com/monitor/grafana:v2.10.0
+grafana_image_url: grafana/grafana:6.2.1
+grafana_conf_path: /opt/grafana/conf
+grafana_data_path: /opt/grafana/data
+grafana_container_name: grafana
+grafana_default_conf_file: grafana.ini.default

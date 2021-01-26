@@ -1,0 +1,13 @@
+set nocompatible
+filetype on
+set history=1000
+syntax on
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set showmatch
+set ruler
+set incsearch
+set nobackup
+set paste

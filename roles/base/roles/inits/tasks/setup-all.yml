@@ -1,0 +1,24 @@
+---
+- include: setup-hostname.yml
+
+- include: setup-network.yml
+
+- include: setup-limit.yml
+
+- include: setup-selinux.yml
+
+- include: setup-sysctl.yml
+
+- include: setup-bashrc.yml
+
+- include: setup-vimrc.yml
+
+- include: setup-motd.yml
+
+- include: setup-pipconf.yml
+
+- include: setup-repo-redhat.yml
+
+#- include: setup-docker-status.yml
+
+

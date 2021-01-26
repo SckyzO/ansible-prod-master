@@ -1,0 +1,6 @@
+---
+zookeeper_package_name: apache-zookeeper-3.5.5-bin.tar.gz
+zookeeper_unarchive_path: apache-zookeeper-3.5.5-bin
+zookeeper_data_path: /opt/data/zookeeper
+zookeeper_conf_path: /opt/zookeeper/conf
+zookeeper_jmx_port: 7070

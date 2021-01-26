@@ -1,0 +1,9 @@
+---
+- include: install_cluster.yml
+  when: operate == "install_cluster"
+
+- include: install_sentinel.yml
+  when: operate == "install_sentinel"
+
+#- include: delete.yml
+#  when: operate == "delete"

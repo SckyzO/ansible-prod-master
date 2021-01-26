@@ -1,0 +1,8 @@
+---
+- name: Reload nginx
+  shell: "{{ nginx_test_command }} && {{ nginx_reload_command }}"
+  when: operate == "reload"
+
+- name: Test config
+  shell: "{{ nginx_test_command }}"
+  when: operate == "test"

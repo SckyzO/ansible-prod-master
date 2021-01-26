@@ -1,0 +1,26 @@
+- name: Ensure token directory exists.
+  file:
+    path: "{{ token_file}}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Get kubelet role's token.
+  shell: "kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kubelet-metrics | awk '{print $1}')| grep 'token:'|awk '{print $2}' > {{ token_file}}/token"
+
+
+- name: Ensure token directory exists on local.
+  file:
+    path: "{{ token_file}}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  delegate_to: localhost
+
+- name: Synchonize k8s role token to ansible controller node.
+  synchronize:
+    src: "{{ token_file}}/token"
+    dest: "{{ token_file}}/token"
+    mode: pull

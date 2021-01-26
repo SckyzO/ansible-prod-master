@@ -1,0 +1,23 @@
+- name: Add kibana package.
+  copy:
+    src: /srv/ansible/files/kibana/{{ kibana_package_name }}
+    dest: /tmp/{{ kibana_package_name }}
+    mode: 0755
+
+- name: Install kibana.
+  package:
+    name: /tmp/{{ kibana_package_name }}
+    state: present
+
+- name: Ensure kibana is started and enabled at boot.
+  service:
+    name: kibana
+    state: started
+    enabled: true
+
+#- name: Delete kibana package.
+#  file:
+#    path: /tmp/{{ kibana_package_name }}
+#    state: absent
+
+- include: config.yml

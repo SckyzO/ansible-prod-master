@@ -1,0 +1,20 @@
+---
+- name: Ensure snmp_exporter conf dir exists.
+  file:
+    path: "{{ monitor_base_path}}/snmp_exporter"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Manage snmp_exporter configs.
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: "snmp.yml", dest: "{{ monitor_base_path}}/snmp_exporter/snmp.yml" }
+  notify: restart snmp_exporter
+

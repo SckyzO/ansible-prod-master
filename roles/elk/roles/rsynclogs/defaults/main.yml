@@ -1,0 +1,8 @@
+---
+rsyncserver_ip: 192.168.114.249
+rsyncserver_port: 8730
+rsyncserver_user: jcadmin
+rsyncserver_pass: JXVBhPXhkKAC1O5f
+# logs_path 需要以 / 结尾
+app_logs_path: /opt/app_logs/
+sys_logs_path: /var/log/

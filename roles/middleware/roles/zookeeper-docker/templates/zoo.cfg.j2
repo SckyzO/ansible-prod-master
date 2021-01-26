@@ -1,0 +1,15 @@
+dataDir=/data
+dataLogDir=/datalog
+tickTime=2000
+initLimit=5
+syncLimit=2
+autopurge.snapRetainCount=3
+autopurge.purgeInterval=0
+maxClientCnxns=60
+standaloneEnabled=true
+admin.enableServer=true
+clientPort={{zookeeper_port1}}
+admin.serverPort={{zookeeper_port4}}
+server.1={{ zookeeper_server1 }}:{{zookeeper_port2}}:{{zookeeper_port3}};{{zookeeper_port1}}
+server.2={{ zookeeper_server2 }}:{{zookeeper_port2}}:{{zookeeper_port3}};{{zookeeper_port1}}
+server.3={{ zookeeper_server3 }}:{{zookeeper_port2}}:{{zookeeper_port3}};{{zookeeper_port1}}

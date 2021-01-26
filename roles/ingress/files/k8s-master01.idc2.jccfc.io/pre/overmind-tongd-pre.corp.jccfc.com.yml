@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: overmind-tongd
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: overmind-tongd-pre.corp.triThirty.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: overmind-tongd
+          servicePort: 8080

@@ -1,0 +1,40 @@
+---
+- name: Ensure /opt/monitor exists.
+  file:
+    path: "{{ monitor_base_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Unarchive node_exporter package.
+  unarchive:
+    src: "{{ node_exporter_source_path }}/{{ node_exporter_package_name }}"
+    dest: "{{ monitor_base_path }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Link to /usr/local/bin/node_exporter.
+  file:
+    src: "{{ monitor_base_path }}/{{ node_exporter_unarchive_path }}/node_exporter"
+    dest: /usr/local/bin/node_exporter
+    owner: root
+    group: root
+    state: link
+
+- name: Add node_exporter systemd service file.
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start node_exporter
+  become: true
+  systemd:
+    name: node_exporter
+    daemon_reload: true
+    state: started
+    enabled: yes

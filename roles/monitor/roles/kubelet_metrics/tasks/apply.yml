@@ -1,0 +1,9 @@
+- name: Synchronize kubelet-metrics yaml files
+  synchronize:
+    src: "kubeletReadOnlyClusterRole.yml"
+    dest: "{{ kubelet_metrics_directory }}"
+    mode: push
+    recursive: yes
+    delete: yes
+  notify:
+    - Apply kubelet-metrics yaml

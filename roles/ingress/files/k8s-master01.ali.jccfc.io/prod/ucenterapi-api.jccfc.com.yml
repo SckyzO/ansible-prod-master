@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ucenterapi
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - ucenterapi-api.triThirty.com
+    secretName: triThirty.com
+  rules:
+  - host: ucenterapi-api.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: ucenterapi
+          servicePort: 8080

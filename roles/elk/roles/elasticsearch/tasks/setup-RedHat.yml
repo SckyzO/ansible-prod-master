@@ -1,0 +1,74 @@
+---
+- name: Add elasticsearch package.
+  copy:
+    src: /srv/ansible/files/elasticsearch/{{ elasticsearch_package_name }}
+    dest: /tmp/{{ elasticsearch_package_name }}
+    mode: 0755
+
+- name: Install elasticsearch.
+  package:
+    name: /tmp/{{ elasticsearch_package_name }}
+    state: present
+
+- name: Create elasticsearch data and log path.
+  file: 
+    path: "{{ item }}"
+    state: directory
+    owner: elasticsearch
+    group: elasticsearch
+    mode: 0755
+  with_items:
+    - "{{ elasticsearch_data_path }}"
+    - "{{ elasticsearch_log_path }}"
+
+- name: Create elasticsearch systemd config path.
+  file:
+    path: /etc/systemd/system/elasticsearch.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Manage elasticsearch systemd configuration.
+  copy:
+    src: override.conf
+    dest: /etc/systemd/system/elasticsearch.service.d/override.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Set vm.max_map_count=262144.
+  sysctl:
+    name: vm.max_map_count
+    value: '262144'
+    state: present
+    reload: yes
+
+- name: Add or modify nofile soft limit for the user elasticsearch.
+  pam_limits:
+    domain: '*'
+    limit_type: soft
+    limit_item: nproc
+    value: '102400'
+
+- name: Add or modify nofile soft limit for the user elasticsearch.
+  pam_limits:
+    domain: '*'
+    limit_type: hard
+    limit_item: nproc
+    value: '102400'
+
+- name: Daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: Ensure elasticsearch is started and enabled at boot.
+  service:
+    name: elasticsearch
+    state: started
+    enabled: true
+
+#- name: Delete elasticsearch package.
+#  file:
+#    path: /tmp/{{ elasticsearch_package_name }}
+#    state: absent

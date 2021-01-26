@@ -1,0 +1,16 @@
+---
+- name: Set /etc/sysctl.conf
+  copy:
+    src: '{{ item }}'
+    dest: /etc/sysctl.conf
+    mode: 0644
+  with_items:
+    - sysctl.conf
+
+- name: excute sysctl -p
+  shell: modprobe br_netfilter && sysctl -p
+
+- name: restart Network
+  service:
+    name: network
+    state: restarted

@@ -1,0 +1,9 @@
+---
+
+- name: create ingress service
+  shell: kubectl apply -f "{{ dest_config_path }}"/"{{ project }}"
+  when: operate == "apply"
+
+- name: delete ingress service
+  shell: kubectl delete -f "{{ dest_config_path }}"/"{{ project }}"/"{{ service }}"
+  when: operate == "delete"

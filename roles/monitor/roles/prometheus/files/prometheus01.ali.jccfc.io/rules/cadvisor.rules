@@ -1,0 +1,13 @@
+groups:
+- name: cadvisorAlerts
+  rules:
+  # Error
+  - alert: DockerDaemonReboot
+    expr: time() - container_start_time_seconds{job="monitoring/cadvisor",id="/"} > 0 and time() - container_start_time_seconds{job="monitoring/cadvisor",id="/"} < 300
+    for: 30s
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "Docker daemon has been restarted"
+      description: "Instance {{ $labels.instance }} docker daemon has been restarted"

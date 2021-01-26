@@ -1,0 +1,22 @@
+---
+- name: Apply kubelet-metrics yaml
+  command: 'kubectl apply -f {{ kubelet_metrics_directory }}'
+
+
+#- name: Ensure kubelet-metrics directory exists.
+#  file:
+#    path: "{{ kubelet_metrics_directory }}"
+#    state: directory
+#    owner: root
+#    group: root
+#    mode: 0755
+#
+#- name: Ensure kubelet-metrics yaml files exist.
+#  copy:
+#    src: "kubeletReadOnlyClusterRole.yml"
+#    dest: "{{ kubelet_metrics_directory }}"
+#    owner: root
+#    group: root
+#    mode: 0644
+#  #notify:
+#  #  - Apply kubelet-metrics yaml

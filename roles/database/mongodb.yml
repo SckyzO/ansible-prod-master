@@ -1,0 +1,7 @@
+---
+#
+# mongodb
+#
+- hosts: "{{ host }}"
+  roles:
+    - mongodb

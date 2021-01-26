@@ -1,0 +1,6 @@
+---
+- name: Set up authorized keys
+  authorized_key:
+    user: root
+    state: present
+    key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCieO/D474uyvM8nUY9uDL3zvEGh2kVdc41Slu2Y4mYecRWR0tk3q7q/63WS26z5CQk95ny1CUob7oA9liP8+QdMzdrC5hAMq41C5vlh5G/tMkd0LKceRIOzZwQr55qpCjfMy2fDjk2XhOf+ukvUwiIKBCMDAQ+8jPjlbqx7GzRBw== root'

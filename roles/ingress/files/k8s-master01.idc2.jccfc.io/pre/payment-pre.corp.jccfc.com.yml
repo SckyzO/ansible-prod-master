@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: payment-pre-corp
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: payment-pre.corp.triThirty.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: payment-fe
+          servicePort: 80
+      - path: /jc
+        backend:
+          serviceName: payment-manager
+          servicePort: 8080
+

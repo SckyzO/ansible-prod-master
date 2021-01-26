@@ -1,0 +1,4 @@
+---
+- name: restart blackbox_exporter
+  shell: docker restart blackbox_exporter
+

@@ -1,0 +1,20 @@
+---
+- name: Ensure blackbox_exporter conf dir exists.
+  file:
+    path: "{{ blackbox_conf_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Manage blackbox_exporter configs.
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ blackbox_user }}"
+    group: "{{ blackbox_group }}"
+    mode: 0644
+  with_items:
+    - { src: "blackbox.yml", dest: "{{ blackbox_conf_path }}/blackbox.yml" }
+  notify: restart blackbox_exporter
+    

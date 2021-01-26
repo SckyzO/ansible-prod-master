@@ -1,0 +1,8 @@
+---
+#lvm_vg: gfs
+#lvm_pvs: /dev/vdb
+#lvm_lv: brick01
+
+lvm_vg: data
+lvm_pvs: /dev/vdb
+lvm_lv: opt

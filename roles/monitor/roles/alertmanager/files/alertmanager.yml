@@ -1,0 +1,90 @@
+global:
+  resolve_timeout: 5m
+  smtp_smarthost: 'smtp.exmail.qq.com:465'
+  smtp_from: 'monitor_noreply@triThirty.com'
+  smtp_auth_username: 'monitor_noreply@triThirty.com'
+  smtp_auth_password: 'yokAjr5BaKwTyvM5'
+  smtp_require_tls: false
+
+templates:
+- '/etc/alertmanager/templates/*.tmpl'
+
+route:
+  group_by: ['alertname', 'idc', 'env', 'severity']
+  group_wait: 1m
+  group_interval: 5m
+  repeat_interval: 20m
+  receiver: 'email.admin'
+
+  routes:
+  - receiver: 'email.devops'
+    continue: true
+    match_re:
+      env: prod
+  - receiver: 'email.notify01'
+    continue: true
+    match_re:
+      env: prod
+  - receiver: 'web.dingtalk_monitor'
+    continue: true
+    match_re:
+      env: prod
+  - receiver: 'web.alertmanager_vms_webhook'
+    continue: true
+    match_re:
+      env: prod
+  - receiver: 'web.alertmanager_log_webhook'
+    continue: true
+    match_re:
+      env: prod
+
+receivers:
+- name: 'email.devops'
+  email_configs:
+  - to: 'infra_devops@triThirty.com'
+    html: '{{ template "email.html" . }}'
+    send_resolved: true
+
+# email.notify01 is the administrative group
+- name: 'email.notify01'
+  email_configs:
+  - to: 'monitor_notify01@triThirty.com'
+    html: '{{ template "email.html" . }}'
+    send_resolved: true
+
+- name: 'email.monitor'
+  email_configs:
+  - to: 'infra_monitor@triThirty.com'
+    html: '{{ template "email.html" . }}'
+    send_resolved: true
+
+- name: 'email.admin'
+  email_configs:
+  - to: 'zouyp@triThirty.com'
+    html: '{{ template "email.html" . }}'
+    send_resolved: true
+  - to: 'maoss@triThirty.com'
+    html: '{{ template "email.html" . }}'
+    send_resolved: true
+
+- name: 'web.dingtalk_monitor'
+  webhook_configs:
+  - url: 'http://172.16.4.110:8060/webhook'
+    send_resolved: true
+
+- name: 'web.alertmanager_log_webhook'
+  webhook_configs:
+  - url: 'http://172.16.4.110:8061/webhook'
+    send_resolved: true
+
+- name: 'web.alertmanager_vms_webhook'
+  webhook_configs:
+  - url: 'http://172.16.4.110:8888/vms/webhook'
+    send_resolved: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'Error'
+    target_match:
+      severity: 'Warning'
+    equal: ['alertname', 'prod', 'instance']

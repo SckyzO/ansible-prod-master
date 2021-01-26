@@ -1,0 +1,26 @@
+---
+- name: Ensure redis data dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: 0755
+  with_items:
+    - "{{ redis_base_path }}/data"
+    - "{{ redis_base_path }}/conf"
+    - "{{ redis_base_path }}/logs"
+
+- name: Configure redis config.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: 0644
+  with_items:
+    - { src: "redis.conf.j2", dest: "{{ redis_base_path }}/conf/redis.conf" }
+    - { src: "sentinel.conf.j2", dest: "{{ redis_base_path }}/conf/sentinel.conf" }
+    - { src: "passwd.j2", dest: "{{ redis_base_path }}/passwd" }
+    - { src: "readme.j2", dest: "{{ redis_base_path }}/README.md" }
+

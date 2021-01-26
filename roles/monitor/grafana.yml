@@ -1,0 +1,7 @@
+---
+#
+# Install grafana
+#
+- hosts: "{{ host }}"
+  roles:
+    - grafana

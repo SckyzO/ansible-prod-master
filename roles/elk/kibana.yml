@@ -1,0 +1,7 @@
+---
+#
+# kibana
+#
+- hosts: "{{ host }}"
+  roles:
+    - kibana

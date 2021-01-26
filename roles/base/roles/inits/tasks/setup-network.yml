@@ -1,0 +1,30 @@
+---
+- name: fix acc  ifcfg-eth0
+  template:
+    src: ifcfg-eth0_acc.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+    backup: yes
+  when: idc == "acc"
+  notify: restart Network
+- name: fix ali  ifcfg-eth0
+  template:
+    src: ifcfg-eth0_ali.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+    backup: yes
+  when: idc == "ali"
+  notify: restart Network
+- name: fix idci2  ifcfg-eth0
+  template:
+    src: ifcfg-eth0_idc2.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+    backup: yes
+  when: idc == "idc2"
+  notify: restart Network
+- name: fix idc3  ifcfg-eth0
+  template:
+    src: ifcfg-eth0_idc3.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+    backup: yes
+  when: idc == "idc3"
+  notify: restart Network
+

@@ -1,0 +1,3 @@
+---
+ingress_conf_path: files/ingress-prod.ali.triThirty.io
+project: ingress-prod.ali.triThirty.io

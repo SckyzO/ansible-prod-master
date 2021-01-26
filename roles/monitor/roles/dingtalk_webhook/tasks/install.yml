@@ -1,0 +1,16 @@
+---
+- name: Running Dingtalk_webhook container.
+  docker_container:
+    name: "{{ dingtalk_container_name }}"
+    image: "{{ dingtalk_image_url }}"
+    ports:
+    - "8060:8080"
+    volumes:
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--defaultRobot={{ dingtalk_webhook_default_url }}"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

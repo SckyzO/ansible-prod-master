@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: loan-pre-corp
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+spec:
+  rules:
+  - host: loan-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: h5-fe
+          servicePort: 80
+

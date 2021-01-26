@@ -1,0 +1,45 @@
+---
+- name: Ensure alertmanager config path exists.
+  file:
+    path: "{{ alertmanager_conf_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Ensure alertmanager data path exists.
+  file:
+    path: "{{ alertmanager_data_path }}"
+    state: directory
+    owner: 65534
+    group: 65534
+    mode: 0755
+
+- name: Ensure alertmanager.yml exists.
+  copy:
+    src: "{{ alertmanager_default_conf_file }}"
+    dest: "{{ alertmanager_conf_path }}/alertmanager.yml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Running alertmanager container.
+  docker_container:
+    name: "{{ alertmanager_container_name }}"
+    image: "{{ alertmanager_image_url }}"
+    ports:
+    - "9093:9093"
+    - "9094:9094"
+    volumes:
+    - "{{ alertmanager_conf_path }}:/etc/alertmanager"
+    - "{{ alertmanager_data_path }}:/data"
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.file=/etc/alertmanager/alertmanager.yml"
+    - "--storage.path=/data"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+- include: config.yml

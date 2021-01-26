@@ -1,0 +1,6 @@
+---
+# defaults file for mysql
+RDS_triThirty_DEV_ROOT_PASSWD=u@wev6@9jbl!H@zi
+RDS_triThirty_SIT_ROOT_PASSWD=u@wev6@9jbl!H@zi
+RDS_triThirty_UAT_ROOT_PASSWD=pbXePma5jSwi8uGVrletd360
+RDS_triThirty_RPOD_ROOT_PASSWD=Lnwe0STTzdJGmBN6

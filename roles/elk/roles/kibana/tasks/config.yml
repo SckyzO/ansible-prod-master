@@ -1,0 +1,19 @@
+---
+- name: Ensures /etc/kibana exists.
+  file:
+    path: /etc/kibana
+    owner: root
+    group: root
+    state: directory
+    mode: 0755
+
+- name: Manage kibana main configs.
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: 'kibana.yml.j2', dest: '/etc/kibana/kibana.yml' }
+  notify: restart kibana

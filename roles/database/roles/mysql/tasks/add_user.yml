@@ -1,0 +1,8 @@
+---
+- name: create mysql root
+  mysql_user:
+    name: root
+    password: 'u@wev6@9jbl!H@zi'
+    priv: "*.*"
+    host_all: yes
+    state: present

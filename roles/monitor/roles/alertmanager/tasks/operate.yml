@@ -1,0 +1,25 @@
+---
+- name: Started alertmanager contailner.
+  docker_container:
+    name: "{{ alertmanager_container_name }}"
+    state: started
+  when: operate == "start"
+
+- name: Stop alertmanager contailner.
+  docker_container:
+    name: "{{ alertmanager_container_name }}"
+    state: stopped
+  when: operate == "stop"
+
+- name: Delete alertmanager contailner.
+  docker_container:
+    name: "{{ alertmanager_container_name }}"
+    state: absent
+  when: operate == "delete"
+
+- name: Reload alertmanager config.
+  uri:
+    url: "{{ alertmanager_reload_url }}"
+    method: POST
+    status_code: 200
+  when: operate == "reload"

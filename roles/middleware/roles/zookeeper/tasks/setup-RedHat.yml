@@ -1,0 +1,30 @@
+---
+#- name: Add zookeeper package.
+#  copy:
+#    src: /srv/ansible/files/zookeeper/{{ zookeeper_package_name }}
+#    dest: /tmp/{{ zookeeper_package_name }}
+#    mode: 0755
+
+- name: Unarchive zookeeper package.
+  unarchive:
+    src: /srv/ansible/files/zookeeper/{{ zookeeper_package_name }}
+    dest: /opt
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Link zookeeper path to /opt/zookeeper
+  file:
+    src: /opt/{{ zookeeper_unarchive_path }}
+    dest: /opt/zookeeper
+    owner: root
+    group: root
+    state: link
+
+- name: Add zookeeper to PATH.
+  shell: export PATH=$PATH:/opt/zookeeper/bin
+
+- include: config.yml
+
+- name: restart zookeeper
+  shell: /opt/zookeeper/bin/zkServer.sh restart

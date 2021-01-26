@@ -1,0 +1,12 @@
+---
+#
+# Install kibana
+#
+- include: setup-RedHat.yml
+  #when: ansible_os_family == 'RedHat'
+  when: operate == "install"
+
+- include: config.yml
+  when: operate == "update"
+
+- include: operate.yml

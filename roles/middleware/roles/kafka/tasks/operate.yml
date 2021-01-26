@@ -1,0 +1,8 @@
+---
+- name: start kafka
+  shell: /opt/kafka/bin/kafka-server-start.sh -daemon /opt/kafka/config/server.properties
+  when: operate == "start"
+
+- name: stop kafka
+  shell: /opt/kafka/bin/kafka-server-stop.sh stop
+  when: operate == "stop"

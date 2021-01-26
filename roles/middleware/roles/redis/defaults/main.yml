@@ -1,0 +1,12 @@
+---
+appid: hr
+redis_port: '16619'
+redis_passwd: JOFIX3XopNV9mfXU
+redis_container_name: redis_{{ appid }}_{{ env }}
+redis_base_path: /opt/redis/{{ redis_container_name }}
+redis_image_url: redis:4.0.14-alpine
+redis_user: root
+redis_group: root
+owner: '王晶'
+describe: '大任 HR系统外包'
+

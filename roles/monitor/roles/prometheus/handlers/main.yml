@@ -1,0 +1,7 @@
+---
+- name: reload prometheus
+  uri:
+    url: "{{ prometheus_reload_url }}"
+    method: POST
+    status_code: 200
+

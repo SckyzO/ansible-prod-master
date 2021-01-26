@@ -1,0 +1,3 @@
+---
+jmx_exporter_path: /opt/monitor/jmx_exporter
+jmx_exporter_package: jmx_prometheus_javaagent-0.11.0.jar

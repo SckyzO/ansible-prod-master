@@ -1,0 +1,51 @@
+---
+- name: Ensure /opt/monitor exists.
+  file:
+    path: "{{ monitor_base_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Unarchive snmp_exporter package.
+  unarchive:
+    src: "{{ snmp_exporter_source_path }}/{{ snmp_exporter_package_name }}"
+    dest: "{{ monitor_base_path }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Link to unarchive dir to monitor/snmp_exporter.
+  file:
+    src: "{{ monitor_base_path }}/{{ snmp_exporter_unarchive_path }}"
+    dest: "{{ monitor_base_path }}/snmp_exporter"
+    owner: root
+    group: root
+    state: link
+
+- name: Link to /usr/local/bin/snmp_exporter.
+  file:
+    src: "{{ monitor_base_path }}/snmp_exporter/snmp_exporter"
+    dest: /usr/local/bin/snmp_exporter
+    owner: root
+    group: root
+    state: link
+
+- include: config.yml
+
+- name: Add snmp_exporter systemd service file.
+  template:
+    src: snmp_exporter.service.j2
+    dest: /etc/systemd/system/snmp_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start snmp_exporter
+  become: true
+  systemd:
+    name: snmp_exporter
+    daemon_reload: true
+    state: started
+    enabled: yes
+

@@ -1,0 +1,8 @@
+{% for host in groups['all'] %}
+- labels:
+    env: {{ hostvars[host]['env'] }}
+    idc: {{ hostvars[host]['idc'] }}
+    msrv: prometheus01.idc2.triThirty.io
+  targets:
+    - {{ hostvars[host]['inventory_hostname'] }}
+{% endfor %}

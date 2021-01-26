@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: h5-server
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - h5-server-pre.corp.triThirty.com
+    secretName: corp.triThirty.com
+  rules:
+  - host: h5-server-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: h5-server
+          servicePort: 8080

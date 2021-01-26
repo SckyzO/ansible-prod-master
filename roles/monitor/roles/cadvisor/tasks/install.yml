@@ -1,0 +1,18 @@
+---
+- name: Running cadvisor container.
+  docker_container:
+    name: "{{ cadvisor_container_name }}"
+    image: "{{ cadvisor_image_url }}"
+    ports:
+    - "9101:8080"
+    volumes:
+    - "/:/rootfs:ro"
+    - "/var/run:/var/run:rw"
+    - "/sys:/sys:ro"
+    - "/var/lib/docker/:/var/lib/docker:ro"
+    - "/cgroup:/cgroup:ro"
+    - "/usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes

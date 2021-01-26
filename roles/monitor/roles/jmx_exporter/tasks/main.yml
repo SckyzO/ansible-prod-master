@@ -1,0 +1,16 @@
+---
+- name: Ensure jmx-export dir exists.
+  file:
+    path: "{{ jmx_exporter_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add jmx-export package.
+  copy:
+    src: /srv/ansible/files/jmx-exporter/{{ jmx_exporter_package }}
+    dest: "{{ jmx_exporter_path }}/{{ jmx_exporter_package }}"
+    owner: root
+    group: root
+    mode: 0644

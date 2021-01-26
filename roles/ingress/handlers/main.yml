@@ -1,0 +1,6 @@
+---
+- name: applay ingress pre
+  shell: kubectl apply -f {{ ingress_base_path }}/pre
+
+- name: applay ingress prod
+  shell: kubectl apply -f {{ ingress_base_path }}/prod

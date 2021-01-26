@@ -1,0 +1,6 @@
+---
+blackbox_image_url: prom/blackbox-exporter:v0.16.0
+blackbox_container_name: blackbox_exporter
+blackbox_conf_path: "{{ monitor_base_path }}/blackbox_exporter/conf"
+blackbox_user: root
+blackbox_group: root

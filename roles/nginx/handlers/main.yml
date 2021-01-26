@@ -1,0 +1,3 @@
+---
+- name: reload nginx
+  shell: "{{ nginx_test_command }} && {{ nginx_reload_command }}"

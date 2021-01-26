@@ -1,0 +1,7 @@
+---
+#
+# redis
+#
+- hosts: "{{ host }}"
+  roles:
+    - redis-docker-cluster

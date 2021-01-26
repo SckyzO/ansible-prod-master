@@ -1,0 +1,86 @@
+---
+- name: Ensure logstash conf&log&pipeline path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0755
+  with_items:
+    - "{{ logstash_conf_path }}"
+    - "{{ logstash_pipeline_path }}"
+
+- name: Manage logstash config files.
+  synchronize:
+    src: "{{ logstash_config_file_path }}"
+    dest: "{{ logstash_path }}"
+    mode: push
+
+#- name: Manage logstash pipeline files.
+#  template:
+#    src: "{{ item.src }}"
+#    dest: "{{ item.dest }}"
+#    owner: "{{ logstash_user }}"
+#    group: "{{ logstash_group }}"
+#    mode: 0644
+#  with_items:
+#    - { src: "logstash_indexer_api-access.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_api-access.conf" }
+#    - { src: "logstash_indexer_app.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_app.conf" }
+#    - { src: "logstash_indexer_rpc-access.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_rpc-access.conf" }
+#    - { src: "logstash_indexer_nginx.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_nginx.conf" }
+
+- name: Manage logstash pipeline files.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0644
+  with_items:
+    - { src: "logstash_indexer_api-access.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_api-access.conf" }
+  notify: restart logstash_indexer_api-access
+
+- name: Manage logstash pipeline files.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0644
+  with_items:
+    - { src: "logstash_indexer_app.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_app.conf" }
+  notify: restart logstash_indexer_app
+
+- name: Manage logstash pipeline files.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0644
+  with_items:
+    - { src: "logstash_indexer_rpc-access.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_rpc-access.conf" }
+  notify: restart logstash_indexer_rpc-access
+
+- name: Manage logstash pipeline files.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0644
+  with_items:
+    - { src: "logstash_indexer_nginx.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_nginx.conf" }
+  notify: restart logstash_indexer_nginx
+
+- name: Manage logstash pipeline files.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ logstash_user }}"
+    group: "{{ logstash_group }}"
+    mode: 0644
+  with_items:
+    - { src: "logstash_indexer_monitor.conf.j2", dest: "{{ logstash_pipeline_path }}/logstash_indexer_monitor.conf" }
+  notify: restart logstash_indexer_monitor
+

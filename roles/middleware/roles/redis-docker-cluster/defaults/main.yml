@@ -1,0 +1,18 @@
+---
+# cluster
+appid: chaseout
+redis_env: pre
+redis_master: '192.168.113.24'
+redis_port: '16599'
+redis_passwd: EpfqDGbLprct3WeZ
+redis_container_name: redis_{{ appid }}_{{ redis_env }}
+redis_base_path: /opt/redis/{{ redis_container_name }}
+redis_image_url: redis:4.0.14-alpine
+redis_user: 999
+redis_group: 1000
+owner: 'chaseout'
+describe: '催收委外系统'
+
+# sentinel
+sentinel_port: '26599'
+sentinel_container_name: sentinel_{{ appid }}_{{ env }}

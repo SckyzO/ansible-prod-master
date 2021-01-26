@@ -1,0 +1,16 @@
+---
+- name: Running elasticsearch_exporter container.
+  docker_container:
+    name: "{{ elasticsearch_container_name }}"
+    image: "{{ elasticsearch_image_url }}"
+    ports:
+    - "9108:9108"
+    volumes:
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--es.uri={{ elasticsearch_cluster_url }}"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

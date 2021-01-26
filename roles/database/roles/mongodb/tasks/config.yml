@@ -1,0 +1,23 @@
+---
+- name: Ensure mongodb data dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ container_user }}"
+    group: "{{ container_group }}"
+    mode: 0755
+  with_items:
+    - "{{ mongodb_base_path }}/data"
+    - "{{ mongodb_base_path }}/conf"
+
+- name: Configure mongodb config.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ container_user }}"
+    group: "{{ container_group }}"
+    mode: 0644
+  with_items:
+    - { src: "passwd.j2", dest: "{{ mongodb_base_path }}/passwd" }
+    - { src: "readme.j2", dest: "{{ mongodb_base_path }}/README.md" }
+

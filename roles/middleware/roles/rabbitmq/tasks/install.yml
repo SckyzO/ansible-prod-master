@@ -1,0 +1,31 @@
+---
+- include: config.yml
+
+- name: Running rabbitmq container.
+  docker_container:
+    name: "{{ rabbitmq_container_name }}"
+    image: "{{ rabbitmq_image_url }}"
+    hostname: "{{ inventory_hostname }}"
+    #network_mode: "{{ rabbitmq_container_network }}"
+    ports:
+    - "{{ rabbitmq_node_port }}:{{ rabbitmq_node_port }}"
+    - "{{ rabbitmq_dist_port }}:{{ rabbitmq_dist_port }}"
+    - "{{ rabbitmq_erl_epmd_port }}:{{ rabbitmq_erl_epmd_port }}"
+    - "{{ rabbitmq_manage_port }}:15672"
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - "{{ rabbitmq_base_path }}/data:/var/lib/rabbitmq"
+      - "{{ rabbitmq_base_path }}/logs:/var/log/rabbitmq"
+      #- "{{ rabbitmq_base_path }}/conf:/etc/rabbitmq"
+    env:
+      RABBITMQ_ERLANG_COOKIE: "{{ rabbitmq_erlang_cookie }}"
+      RABBITMQ_VM_MEMORY_HIGH_WATERMARK: "{{ rabbitmq_vm_memory_high_watermark }}"
+      RABBITMQ_NODENAME: "rabbit_{{ rabbitmq_env }}@{{ inventory_hostname_short }}"
+      RABBITMQ_NODE_PORT: "{{ rabbitmq_node_port }}"
+      RABBITMQ_DIST_PORT: "{{ rabbitmq_dist_port }}"
+      ERL_EPMD_PORT: "{{ rabbitmq_erl_epmd_port }}"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

@@ -1,0 +1,7 @@
+---
+#
+# Install prometheus running in docker
+#
+- hosts: "{{ host }}"
+  roles:
+    - prometheus

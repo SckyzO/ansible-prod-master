@@ -1,0 +1,11 @@
+- labels:
+    idc: ali
+    env: prod
+    app: blackbox
+  targets:
+    - triThirty-demo.ks3-cn-beijing.ksyun.com
+    - triThirty-uat.ks3-cn-beijing.ksyun.com
+    - triThirty-prod.ks3-cn-beijing.ksyun.com
+    - 10.10.8.43
+    - 10.10.8.113
+

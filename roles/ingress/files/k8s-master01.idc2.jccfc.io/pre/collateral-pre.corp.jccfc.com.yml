@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: collateral-fe
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite /uapi/(.*)  /jc/$1 break;
+      rewrite /u-aduit-list-api/(.*)  /jc/$1 break;
+spec:
+  tls:
+  - hosts:
+    - collateral-pre.corp.triThirty.com
+    secretName: corp.triThirty.com
+  rules:
+  - host: collateral-pre.corp.triThirty.com
+    http:
+      paths:
+      - path: /uapi/
+        backend:
+          serviceName: dy-web
+          servicePort: 8080
+      - path: /u-aduit-list-api/
+        backend:
+          serviceName: loan-admin
+          servicePort: 8080
+      - path: /
+        backend:
+          serviceName: collateral-fe
+          servicePort: 80

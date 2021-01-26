@@ -1,0 +1,20 @@
+---
+- name: Ensure redis_exporter conf dir exists.
+  file:
+    path: "{{ redis_conf_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+#- name: Manage redis_exporter configs.
+#  copy:
+#    src: "{{ item.src }}"
+#    dest: "{{ item.dest }}"
+#    owner: "{{ redis_user }}"
+#    group: "{{ redis_group }}"
+#    mode: 0644
+#  with_items:
+#    - { src: "redis.yml", dest: "{{ redis_conf_path }}/redis.yml" }
+#  notify: restart redis_exporter 
+

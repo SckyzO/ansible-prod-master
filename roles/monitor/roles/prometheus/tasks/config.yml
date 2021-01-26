@@ -1,0 +1,51 @@
+---
+- name: Ensure prometheus rules&targets dir exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0755
+  with_items:
+    - "{{ prometheus_base_path }}/conf/rules"
+    - "{{ prometheus_base_path }}/conf/targets"
+
+- name: Manager prometheus.yml.
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644
+  with_items:
+    - { src: "{{ inventory_hostname }}/prometheus.yml", dest: "{{ prometheus_base_path }}/conf/prometheus.yml" }
+  notify: reload prometheus
+
+- name: Manager prometheus rules & targets configs.
+  synchronize:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: no
+    group: no
+    mode: push
+    recursive: yes
+    delete: yes
+  with_items:
+    - { src: "{{ inventory_hostname }}/rules", dest: "{{ prometheus_base_path }}/conf" }
+    - { src: "{{ inventory_hostname }}/targets", dest: "{{ prometheus_base_path }}/conf" }
+    - { src: "{{ inventory_hostname }}/token", dest: "{{ prometheus_base_path }}/conf" }
+  notify: reload prometheus
+
+- name: Manager template auto configs.
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644
+  with_items:
+    - { src: "{{ inventory_hostname }}/targets/node_exporter_targets.yml.j2", dest: "{{ prometheus_base_path }}/conf/targets/node_exporter_targets_auto.yml" }
+    - { src: "{{ inventory_hostname }}/targets/blackbox_icmp_targets.yml.j2", dest: "{{ prometheus_base_path }}/conf/targets/blackbox_icmp_targets_auto.yml" }
+  notify: reload prometheus
+  when: env == "prod"
+

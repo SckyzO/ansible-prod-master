@@ -1,0 +1,13 @@
+---
+#- name: Delete redis container.
+#  docker_container:
+#    name: "{{ redis_container_name }}"
+#    state: absent
+
+#- name: Delete redis data.
+#  file:
+#    path: "{{ item }}"
+#    state: absent
+#  with_items:
+#    - "{{ redis_base_path }}"
+

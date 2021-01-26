@@ -1,0 +1,3 @@
+---
+- name: Apply kube-state-metrics yaml
+  command: 'kubectl apply -f {{ monitor_base_path }}/{{ kube_state_metrics_manifest_directory }}'

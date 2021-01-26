@@ -1,0 +1,75 @@
+filebeat.shutdown_timeout: 10s
+filebeat.registry.path: /var/run/.registry
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat.log
+  keepfiles: 7
+  permissions: 0644
+
+filebeat.config.inputs:
+  enabled: true
+  path: ${path.config}/conf.d/*.yml
+  reload.enabled: false
+  reload.period: 30s
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+processors:
+  #- dissect:
+  #    when:
+  #      equals:
+  #        fields.version: "3.0"
+  #    tokenizer: "/opt/app_logs/%{org}_%{env}_%{appid}/%{logfile}"
+  #    field: "log.file.path"
+  #    target_prefix: "dissect"
+  #- dissect:
+  #    when:
+  #      equals:
+  #        fields.version: "2.0"
+  #    tokenizer: "/opt/app_logs/%{appid}/%{logfile}"
+  #    field: "log.file.path"
+  #    target_prefix: "dissect"
+  #- dissect:
+  #    when:
+  #      equals:
+  #        fields.version: "1.0"
+  #    tokenizer: "/opt/app_logs/%{org}_%{env}_%{appid}/%{logpath}/%{logfile}.log"
+  #    field: "log.file.path"
+  #    target_prefix: "dissect"
+  - drop_fields:
+      fields: ["agent", "log.offset", "prospector", "input", "ecs"]
+
+output.console:
+  enabled: false
+  pretty: true
+
+output.kafka:
+  enabled: true
+  version: 2.0.0
+  hosts: ["192.168.114.14:9092", "192.168.114.15:9092", "192.168.114.16:9092"]
+  worker: 3
+  topic: 'NGINX_%{[fields.logtype]}_log'
+  #topics:
+  #  - topic: '%{[dissect.env]}_%{[dissect.appid]}_%{[fields.logtype]}_log'
+  #    when:
+  #      equals:
+  #        fields.version: "3.0"
+  #  - topic: '{{ env }}_%{[dissect.appid]}_%{[fields.logtype]}_log'
+  #    when:
+  #      equals:
+  #        fields.version: "2.0"
+  #  - topic: '%{[dissect.env]}_%{[dissect.appid]}_%{[dissect.logpath]}_log'
+  #    when:
+  #      equals:
+  #        fields.version: "1.0"
+  partition.round_robin:
+    reachable_only: true
+  required_acks: 1
+  max_retries: 3
+  keep_alive: 60
+  compression: gzip
+  max_message_bytes: 5242800

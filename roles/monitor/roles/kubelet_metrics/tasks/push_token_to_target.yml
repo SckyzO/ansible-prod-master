@@ -1,0 +1,12 @@
+- name: Ensure token directory exists on target nodes.
+  file:
+    path: "{{ token_file}}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Synchronize token to host.
+  synchronize:
+    src: "{{ token_file}}/token"
+    dest: "{{ token_file}}/token"

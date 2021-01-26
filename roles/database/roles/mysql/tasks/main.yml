@@ -1,0 +1,6 @@
+---
+- include: add_user.yml
+  when: operate == "add_user"
+
+- include: delete_user.yml
+  when: operate == "delete_user"

@@ -1,0 +1,53 @@
+groups:
+# Http_2xx_check
+- name: APICheckAlerts
+  rules:
+  - alert: APICheckUnaccessible
+    expr:  probe_success{job="monitoring/http_2xx_check",instance!~".*.ks3-cn-beijing.ksyun.com"} == 0
+    for: 2m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "API HTTP check unaccessible"
+      description: "API {{ $labels.instance }} HTTP check unaccessible for 2 minute"
+  - alert: APICheckDelayHigh
+    expr:  probe_duration_seconds{job="monitoring/http_2xx_check"} > 5
+    for: 3m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "API HTTP check delay high"
+      description: "API {{ $labels.instance }} HTTP check delay more than 5s for 3 minutes."
+  - alert: APICheckStatuCodeNotHealthy
+    expr:  probe_http_status_code{job="monitoring/http_2xx_check"} > 399
+    for: 2m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "API http check response code > 399"
+      description: "API {{ $labels.instance }} http check response code > 399 for more than 2 minutes."
+# ICMP Check
+- name: ICMPCheckAlerts
+  rules:
+  - alert: ICMPCheckUnreachable
+    expr:  probe_success{job="monitoring/icmp_check"} == 0 
+    for: 3m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "ICMP check unreachable"
+      description: "Instance {{ $labels.instance }} ICMP check unreachable for 3 minute"
+  - alert: ICMPCheckDelayHigh
+    expr:  probe_duration_seconds{job="monitoring/icmp_check"} > 1
+    for: 3m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "ICMP check delay high"
+      description: "Instance {{ $labels.instance }} ICMP check delay more than 1s for 3 minutes"
+

@@ -1,0 +1,37 @@
+{{ define "email.html" }}
+
+{{ if gt (len .Alerts.Firing) 0 }}
+<strong>[{{ .Alerts.Firing | len }}] Firing</strong>
+<br />
+{{ end }}
+{{ range .Alerts.Firing }}
+<br />
+告警类别： {{ .Labels.alertname }} <br />
+告警主机： {{ .Labels.instance }} <br />
+告警级别： {{ .Labels.severity }} <br />
+告警信息： {{ .Annotations.summary }} <br />
+告警详情： {{ .Annotations.description }} <br />
+触发时间： {{ .StartsAt.Format "2006-01-02 15:04:05" }} <br />
+{{ end }}
+
+{{ if gt (len .Alerts.Resolved) 0 }}
+{{ if gt (len .Alerts.Firing) 0 }}
+<br />
+<br />
+{{ end }}
+<strong>[{{ .Alerts.Resolved | len }}] Resolved</strong>
+<br />
+{{ end }}
+{{ range .Alerts.Resolved }}
+<br />
+告警类别： {{ .Labels.alertname }} <br />
+告警主机： {{ .Labels.instance }} <br />
+告警级别： Resolved <br />
+告警信息： {{ .Annotations.summary }} <br />
+告警详情： {{ .Annotations.description }} <br />
+触发时间： {{ .StartsAt.Format "2006-01-02 15:04:05" }} <br />
+恢复时间： {{ .EndsAt.Format "2006-01-02 15:04:05" }} <br />
+{{ end }}
+
+{{ end }}
+

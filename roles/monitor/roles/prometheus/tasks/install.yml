@@ -1,0 +1,46 @@
+---
+#- name: Install python package docker.
+#  pip:
+#    name: docker
+
+- name: Ensure prometheus config&data path exists.
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0755
+  with_items:
+    - "{{ prometheus_base_path }}/conf"
+    - "{{ prometheus_base_path }}/data"
+
+- name: Ensure prometheus.yml exists.
+  copy:
+    src: "{{ prometheus_default_conf_file }}"
+    dest: "{{ prometheus_base_path }}/conf/prometheus.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: 0644
+
+- name: Running prometheus container.
+  docker_container:
+    name: "{{ prometheus_container_name }}"
+    image: "{{ prometheus_image_url }}"
+    ports:
+    - "9090:9090"
+    volumes:
+    - "{{ prometheus_base_path }}/conf:/prometheus"
+    - "{{ prometheus_base_path }}/data:/data"
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.file=/prometheus/prometheus.yml"
+    - "--storage.tsdb.path=/data"
+    - "--storage.tsdb.retention.time=180d"
+    - "--web.enable-lifecycle"
+    - "--web.enable-admin-api"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+
+# - include: config.yml

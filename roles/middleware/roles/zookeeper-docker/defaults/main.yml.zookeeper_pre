@@ -1,0 +1,16 @@
+---
+zookeeper_env: pre
+zookeeper_server1: 192.168.114.24
+zookeeper_server2: 192.168.114.25
+zookeeper_server3: 192.168.114.26
+zookeeper_port1: 42181
+zookeeper_port2: 2868
+zookeeper_port3: 3868
+zookeeper_port4: 8068
+zookeeper_image_url: zookeeper:3.5
+zookeeper_container_name: zookeeper-{{ zookeeper_env }}
+zookeeper_base_path: /opt/zookeeper-{{ zookeeper_env }}
+zookeeper_container_network: host
+zookeeper_user: root
+zookeeper_group: root
+

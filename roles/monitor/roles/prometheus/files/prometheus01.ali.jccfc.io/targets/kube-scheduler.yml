@@ -1,0 +1,7 @@
+- labels:
+    env: prod
+    idc: ali
+  targets:
+    - k8s-master01.ali.triThirty.io:10251
+    - k8s-master02.ali.triThirty.io:10251
+    - k8s-master03.ali.triThirty.io:10251

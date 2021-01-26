@@ -1,0 +1,7 @@
+---
+#
+# Zookeeper
+#
+- hosts: "{{ host }}"
+  roles:
+    - zookeeper-docker

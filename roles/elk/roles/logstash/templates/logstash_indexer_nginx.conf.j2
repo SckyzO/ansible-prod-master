@@ -1,0 +1,49 @@
+input {
+    kafka {
+        max_partition_fetch_bytes => "5242880"
+        bootstrap_servers => "{{ kafka_servers }}"
+        group_id => "triThirty_nginx_log"
+        decorate_events => true
+        topics_pattern => "NGINX_.*_log"
+        consumer_threads => 3
+        codec => json {
+            charset => ["UTF-8"]
+        }
+    }
+}
+
+filter {
+    if [fields][logtype] == "access" {
+        #grok {
+        #    match => ["message", "(?<remote_addr>(%{IPORHOST}|)) (?<client_port>%{POSINT}|) - (?<remote_user>[a-zA-Z\.\@\-\+_%]+) \[%{HTTPDATE:timestamp}\] \"%{WORD:method} %{WORD:scheme}://%{HOSTNAME:request_host}%{URIPATH:request_path}(?:%{URIPARAM:request_params})? HTTP/%{NUMBER:httpversion}\" %{NUMBER:response} (?:%{NUMBER:bytes}|-) (?:\"(?:%{URI:referrer}|-)\"|%{QS:referrer}) %{QS:agent} \"(?<upstream_addr>(%{IPORHOST}:\d{1,}|-|)) (?<x_forwarded_for>%{IPORHOST}, .*|%{IPORHOST}|-)\" (?<request_time>[0-9]{1,}\.[0-9]{1,}|-|) (?<response_time>[0-9]{1,}\.[0-9]{1,}|-|).*"]
+        #}
+        json {
+            source => "message"
+        }
+        geoip {
+            source => "remote_addr"
+        }
+        date {
+            match => [ "datetime","yyyy-MM-dd HH:mm:ss.SSS","ISO8601" ]
+            timezone => "Asia/Chongqing"
+        }
+        mutate {
+            remove_field => [ "dissect", "message" ]
+            lowercase => [ "[@metadata][kafka][topic]" ]
+        }
+    } else if [fields][logtype] == "error" {
+        mutate {
+            remove_field => [ "dissect" ]
+            lowercase => [ "[@metadata][kafka][topic]" ]
+        }
+    } else {
+        drop { }
+    }
+}
+
+output {
+    elasticsearch {
+        hosts => {{ elasticsearch_servers }}
+        index => "%{[@metadata][kafka][topic]}-%{+xxxx.ww}"
+    }
+}

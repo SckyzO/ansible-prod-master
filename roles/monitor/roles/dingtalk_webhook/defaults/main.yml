@@ -1,0 +1,4 @@
+---
+dingtalk_container_name: dingtalk_webhook
+dingtalk_image_url: harbor.corp.triThirty.com/monitor/dingtalk_webhook:v1.0.0
+dingtalk_webhook_default_url: https://oapi.dingtalk.com/robot/send?access_token=d2249ad5b74b1a04a1e8d81cab64fdaaf4fd6ea793055dc57d68e72e3dfeb63e

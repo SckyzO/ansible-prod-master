@@ -1,0 +1,21 @@
+---
+- name: restart node_exporter
+  systemd:
+    daemon_reload: true
+    name: node_exporter
+    state: restarted
+  when: operate == "restart"
+
+- name: start node_exporter
+  systemd:
+    daemon_reload: true
+    name: node_exporter
+    state: started
+  when: operate == "start"
+
+- name: stop node_exporter
+  systemd:
+    daemon_reload: true
+    name: node_exporter
+    state: stopped
+  when: operate == "stop"

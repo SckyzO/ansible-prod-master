@@ -1,0 +1,3 @@
+---
+java_version: 8
+rocketmq_cluster_name: rocketmq_prod

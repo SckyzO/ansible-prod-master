@@ -1,0 +1,13 @@
+- labels:
+    env: prod 
+    idc: ali
+    job: kubelet
+    namespace: kube-system
+    service: kubelet
+  targets:
+    - k8s-master01.ali.triThirty.io:10250
+    - k8s-master02.ali.triThirty.io:10250
+    - k8s-master03.ali.triThirty.io:10250
+    - k8s-node01.ali.triThirty.io:10250
+    - k8s-node02.ali.triThirty.io:10250
+    - k8s-node03.ali.triThirty.io:10250

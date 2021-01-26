@@ -1,0 +1,7 @@
+---
+#
+# Kafka
+#
+- hosts: "{{ host }}"
+  roles:
+    - kafka

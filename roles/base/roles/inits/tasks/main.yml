@@ -1,0 +1,37 @@
+---
+- include: setup-hostname.yml
+  when: operate == "hostname"
+
+- include: setup-limit.yml
+  when: operate == "limit"
+
+- include: setup-repo-redhat.yml
+  when: operate == "repo"
+
+- include: setup-network.yml
+  when: operate == "network"
+
+- include: setup-selinux.yml
+  when: operate == "selinux"
+
+- include: setup-bashrc.yml
+  when: operate == "bashrc"
+
+- include: setup-vimrc.yml
+  when: operate == "vimrc"
+
+- include: setup-sysctl.yml
+  when: operate == "sysctl"
+
+- include: setup-docker-status.yml
+  when: operate == "docker-status"
+
+- include: setup-motd.yml
+  when: operate == "motd"
+
+- include: setup-pipconf.yml
+  when: operate == "pip"
+
+- include: setup-all.yml
+  when: operate == "inits"
+

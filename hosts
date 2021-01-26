@@ -1,0 +1,148 @@
+[ali-ansible]
+ansible.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.54
+[ali-dns]
+dns05.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.58
+dns06.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.59
+[ali-k8s-master]
+k8s-master01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.97
+k8s-master02.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.98
+k8s-master03.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.99
+[ali-k8s-node]
+k8s-node01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.100
+k8s-node02.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.101
+k8s-node03.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.102
+[ali-ingress-ali-prod]
+k8s-master01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.97
+[ali-zookeeper]
+zookeeper01.ali.triThirty.io idc=ali env=prod srvid=1 ansible_host=172.16.3.105
+zookeeper02.ali.triThirty.io idc=ali env=prod srvid=2 ansible_host=172.16.3.106
+zookeeper03.ali.triThirty.io idc=ali env=prod srvid=3 ansible_host=172.16.3.107
+[ali-prometheus]
+prometheus01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.110
+[ali-rabbitmq]
+rabbitmq01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.111
+rabbitmq02.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.112
+rabbitmq03.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.113
+[ali-es-gxwl]
+es04.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.87
+es05.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.88
+es06.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.89
+[ali-azkaban]
+azkaban.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.90
+[ali-neo4j]
+neo4j.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.91
+[ali-logsbackup]
+logs01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.10
+[ali-rocketmq]
+rocketmq01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.70
+rocketmq02.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.71
+rocketmq03.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.72
+#[jinry-nginx]
+#nginx03.ali.triThirty.io idc=ali env=prod ansible_host=112.74.229.186 ansible_port=2801
+#nginx04.ali.triThirty.io idc=ali env=prod ansible_host=112.74.229.186 ansible_port=2802
+[ali-nginx]
+nginx01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.73
+nginx02.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.74
+[ali-apollo]
+apollo.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.78
+[ali-nexus]
+#nexus.ali.triThirty.io idc=ali env=prod ansible_host=172.16.4.83
+[ali-kettle]
+kettle01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.109
+[ali-logs-back]
+logs01.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.10
+[ali-fdd]
+fdd-baseserver.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.114
+fdd-webserver.ali.triThirty.io idc=ali env=prod ansible_host=172.16.3.115
+[idc2-ansible]
+ansible.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.9
+[idc2-jumpserver]
+jumpserver.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.10
+[idc2-rabbitmq]
+rabbitmq01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.21
+rabbitmq02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.22
+rabbitmq03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.23
+[idc2-zookeeper]
+zookeeper01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.24 myid=1
+zookeeper02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.25 myid=2
+zookeeper03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.26 myid=3
+[idc2-nginx]
+nginx01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.7
+nginx02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.8
+nginx03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.5
+nginx04.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.6
+[idc2-jenkins]
+jenkins01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.20
+[idc2-db]
+db01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.113.11
+db-test.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.113.12
+#db2-test.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.113.14
+[idc2-backup]
+backup01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.249
+backup02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.248
+[idc2-eslog]
+es01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.11
+es02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.12
+es03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.13
+es04.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.18
+es05.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.19
+[idc2-kafkalog]
+kafka01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.14 myid=1
+kafka02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.15 myid=2
+kafka03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.16 myid=3
+[idc2-logstash]
+logs01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.17
+[idc2-prometheus]
+prometheus01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.110
+[idc2-proxy]
+#nexus-proxy.ali.triThirty.io idc=ali env=prod ansible_host=47.240.1.102
+[idc1]
+3.0.0.35 idc=idc1 env=prod ansible_host=3.0.0.35
+3.0.0.36 idc=idc1 env=prod ansible_host=3.0.0.36
+3.0.0.38 idc=idc1 env=prod ansible_host=3.0.0.38
+3.0.0.39 idc=idc1 env=prod ansible_host=3.0.0.39
+3.0.0.40 idc=idc1 env=prod ansible_host=3.0.0.40
+3.0.0.41 idc=idc1 env=prod ansible_host=3.0.0.41
+3.0.0.42 idc=idc1 env=prod ansible_host=3.0.0.42
+3.0.0.43 idc=idc1 env=prod ansible_host=3.0.0.43
+3.0.0.44 idc=idc1 env=prod ansible_host=3.0.0.44
+3.0.0.45 idc=idc1 env=prod ansible_host=3.0.0.45
+3.0.0.46 idc=idc1 env=prod ansible_host=3.0.0.46
+3.0.0.47 idc=idc1 env=prod ansible_host=3.0.0.47
+3.0.0.48 idc=idc1 env=prod ansible_host=3.0.0.48
+3.0.0.49 idc=idc1 env=prod ansible_host=3.0.0.49
+3.0.0.51 idc=idc1 env=prod ansible_host=3.0.0.51
+3.0.0.55 idc=idc1 env=prod ansible_host=3.0.0.55
+3.0.0.56 idc=idc1 env=prod ansible_host=3.0.0.56
+3.0.0.57 idc=idc1 env=prod ansible_host=3.0.0.57
+3.0.0.58 idc=idc1 env=prod ansible_host=3.0.0.58
+3.0.0.60 idc=idc1 env=prod ansible_host=3.0.0.60
+3.0.0.66 idc=idc1 env=prod ansible_host=3.0.0.66
+#3.0.0.54 idc=idc1 env=prod ansible_host=3.0.0.54
+#3.0.0.238 idc=idc1 env=prod ansible_host=3.0.0.238
+#3.0.0.237 idc=idc1 env=prod ansible_host=3.0.0.237
+
+[idc2-k8s-master]
+k8s-master01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.20
+k8s-master02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.21
+k8s-master03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.22
+#[idc2-k8s-node]
+k8s-node01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.23
+k8s-node02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.24
+k8s-node03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.25
+[idc2-redis]
+redis01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.113.24
+redis02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.113.25
+redis03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.113.26
+[idc2-fastdfs]
+fastdfs01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.27
+fastdfs02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.114.28
+[idc2-app]
+app01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.11
+app02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.12
+[idc2-sftp]
+sftp.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.31
+[idc2-glusterfs]
+glusterfs01.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.7
+glusterfs02.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.8
+glusterfs03.idc2.triThirty.io idc=idc2 env=prod ansible_host=192.168.115.9

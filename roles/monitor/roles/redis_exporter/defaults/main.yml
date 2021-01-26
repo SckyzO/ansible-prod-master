@@ -1,0 +1,8 @@
+---
+redis_image_url: oliver006/redis_exporter:v1.3.1-alpine
+redis_container_name: redis_exporter
+redis_conf_path: "{{ monitor_base_path }}/redis_exporter/conf"
+redis_user: root
+redis_group: root
+redis_port: 9121
+

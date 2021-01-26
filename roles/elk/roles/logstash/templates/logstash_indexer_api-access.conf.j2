@@ -1,0 +1,38 @@
+input {
+    kafka {
+        max_partition_fetch_bytes => "5242880"
+        bootstrap_servers => "{{ kafka_servers }}"
+        group_id => "triThirtylog"
+        decorate_events => true
+        topics_pattern => ".*_api-access_log"
+        consumer_threads => 3
+        codec => json {
+            charset => ["UTF-8"]
+        }
+    }
+}
+
+filter {
+    if [fields][logtype] == "api-access" {
+        grok {
+            match => ["message", "\[(?<datetime>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3})\]\s{1,}(?<clientip>%{IPORHOST}|-)\s{1,}(.*|-)\s{1,}(.*|-)\"(?<method>\w+)\s{1,}(?<urlpath>.*?)\s{1,}(.*)\"\s{1,}(?<status>\d{3})\s{1,}(?<send_bytes>\d{1,})"]
+        }
+        date {
+            match => [ "datetime","yyyy-MM-dd HH:mm:ss.SSS","ISO8601" ]
+            timezone => "Asia/Chongqing"
+        }
+        mutate {
+            remove_field => [ "dissect" ]
+            lowercase => [ "[@metadata][kafka][topic]" ]
+        }
+    } else {
+        drop { }
+    }
+}
+
+output {
+    elasticsearch {
+        hosts => {{ elasticsearch_servers }}
+        index => "%{[@metadata][kafka][topic]}-%{+xxxx.ww}"
+    }
+}

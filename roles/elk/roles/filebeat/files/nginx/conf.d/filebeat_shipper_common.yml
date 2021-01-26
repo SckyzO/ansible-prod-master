@@ -1,0 +1,32 @@
+- type: log
+  enabled: true
+  tail_files: true
+  close_*: true
+  clean_*: true
+  encoding: utf-8
+  paths:
+    - /var/log/nginx/*access.log
+    - /opt/ingress_logs/*access.log
+  scan_frequency: 10s
+  #multiline.pattern: '^\d{4}\-\d{2}\-\d{2}'
+  #multiline.negate: true
+  #multiline.match: after
+  fields:
+    logtype: access
+
+- type: log
+  enabled: true
+  tail_files: true
+  close_*: true
+  clean_*: true
+  encoding: utf-8
+  paths:
+    - /var/log/nginx/*error.log
+    - /opt/ingress_logs/*error.log
+  scan_frequency: 10s
+  #multiline.pattern: '^\[\d{4}\-\d{2}\-\d{2}'
+  #multiline.negate: true
+  #multiline.match: after
+  fields:
+    logtype: error
+

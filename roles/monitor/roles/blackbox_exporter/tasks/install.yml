@@ -1,0 +1,19 @@
+---
+- include: config.yml
+
+- name: Running blackbox_exporter container.
+  docker_container:
+    name: "{{ blackbox_container_name }}"
+    image: "{{ blackbox_image_url }}"
+    ports:
+    - "9115:9115"
+    volumes:
+    - "{{ blackbox_conf_path }}:/conf"
+    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    command:
+    - "--config.file=/conf/blackbox.yml"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes
+

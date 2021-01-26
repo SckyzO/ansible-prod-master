@@ -1,0 +1,6 @@
+---
+snmp_exporter_package_name: snmp_exporter-0.15.0.linux-amd64.tar.gz
+snmp_exporter_unarchive_path: snmp_exporter-0.15.0.linux-amd64
+snmp_exporter_source_path: /srv/ansible/files/snmp_exporter
+snmp_exporter_binary_path: /usr/local/bin/
+snmp_exporter_web_listen_address: :9116

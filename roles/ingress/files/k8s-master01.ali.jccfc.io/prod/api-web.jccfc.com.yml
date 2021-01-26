@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api-web
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - api-web.triThirty.com
+    secretName: triThirty.com
+  rules:
+  - host: api-web.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: api-web
+          servicePort: 8080

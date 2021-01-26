@@ -1,0 +1,6 @@
+---
+- include: setup-RedHat.yml
+  when: operate == "install"
+
+- include: config.yml
+  when: operate == "update"

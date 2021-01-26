@@ -1,0 +1,7 @@
+- labels:
+    env: prod
+    idc: ali
+    host: rm-2vc0i34h13v0s79t7.mysql.cn-chengdu.rds.aliyuncs.com
+    name: triThirty-prod
+  targets:
+    - 172.16.4.110:9201

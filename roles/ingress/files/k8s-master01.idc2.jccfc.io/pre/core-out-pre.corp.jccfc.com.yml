@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: core-out-pre-corp
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: core-out-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: core-out
+          servicePort: 8080
+

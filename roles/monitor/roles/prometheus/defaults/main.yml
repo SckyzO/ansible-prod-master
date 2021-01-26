@@ -1,0 +1,11 @@
+---
+#prometheus_image_url: harbor-ali.triThirty.com/monitor/prometheus:v2.10.0
+prometheus_image_url: prom/prometheus:v2.18.1
+#prometheus_source_config_path: /etc/ansible/roles/monitor/roles/prometheus/files/conf
+prometheus_base_path: "{{ monitor_base_path }}/prometheus"
+prometheus_container_name: prometheus
+prometheus_default_conf_file: prometheus.yml.default
+prometheus_reload_url: http://localhost:9090/-/reload
+prometheus_quit_url: http://localhost:9090/-/quit
+prometheus_user: '65534'
+prometheus_group: '65534'

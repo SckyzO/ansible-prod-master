@@ -1,0 +1,10 @@
+---
+rocketmq_package_path: /srv/ansible/files/rocketmq
+rocketmq_package_name: rocketmq-all-4.2.0-bin-release.zip
+rocketmq_unarchive_path: /opt/rocketmq-4.2.0
+rocketmq_store_root_path: /opt/data/rocketmq/store
+rocketmq_log_path: /opt/data/rocketmq/logs
+rocketmq_user: root
+rocketmq_group: root
+
+rocketmq_nameserver_port: 9876

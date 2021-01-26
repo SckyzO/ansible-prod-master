@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: haoze-pre-corp
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/app-root: /easyFlow/index.html
+    ingress.kubernetes.io/affinity: "cookie"
+spec:
+  rules:
+  - host: haoze-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: haoze-fe
+          servicePort: 80
+

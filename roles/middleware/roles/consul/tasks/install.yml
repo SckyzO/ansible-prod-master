@@ -1,0 +1,30 @@
+---
+- include: config.yml
+
+- name: Running consul container.
+  docker_container:
+    name: "{{ consul_container_name }}"
+    image: "{{ consul_image_url }}"
+    hostname: "{{ inventory_hostname }}"
+    network_mode: "{{ consul_container_network }}"
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+      - "{{ consul_base_path }}/data:/consul/data"
+      - "{{ consul_base_path }}/conf:/consul/conf"
+    env:
+      CONSUL_LOCAL_CONFIG: '{"skip_leave_on_interrupt": true}'
+    command:
+    - "agent"
+    - "-server"
+    - "-ui"
+    - "-config-dir=/consul/conf"
+    - "-data-dir=/consul/data"
+    - "-bootstrap-expect=3"
+    - "-node={{ ansible_host }}"
+    - "-bind={{ ansible_host }}"
+    - "-client=0.0.0.0"
+    - "-join=172.16.19.45"
+    state: started
+    restart_policy: on-failure
+    restart_retries: 5
+    restart: yes

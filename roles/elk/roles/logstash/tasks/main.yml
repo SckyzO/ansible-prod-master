@@ -1,0 +1,7 @@
+---
+- include: install.yml
+  when: ansible_os_family == "RedHat" and operate == "install"
+
+- include: config.yml
+  when: operate == "update"
+

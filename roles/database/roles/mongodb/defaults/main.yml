@@ -1,0 +1,11 @@
+---
+appid: test-appid
+mongodb_env: dev
+mongodb_port: '27057'
+mongodb_user: "{{ appid }}"
+mongodb_passwd: XfzXBn3ug8yicH3C
+mongodb_image_url: mongo:4.2.2
+mongodb_container_name: mongodb_{{ appid }}_{{ mongodb_env }}
+mongodb_base_path: /opt/mongodb/{{ mongodb_container_name }}
+container_user: '999'
+container_group: '999'

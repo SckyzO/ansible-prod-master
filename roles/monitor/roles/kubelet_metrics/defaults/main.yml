@@ -1,0 +1,3 @@
+---
+kubelet_metrics_directory: '{{ monitor_base_path }}/kubelet_metrics'
+token_file: '/var/run/secrets/kubernetes.io/serviceaccount'

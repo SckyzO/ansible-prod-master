@@ -1,0 +1,4 @@
+---
+- hosts: "{{ host }}"
+  roles:
+    - redis_exporter

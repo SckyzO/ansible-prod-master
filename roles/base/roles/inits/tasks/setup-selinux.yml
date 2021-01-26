@@ -1,0 +1,10 @@
+---
+- name: Disable selinux.
+  lineinfile:
+    dest: /etc/selinux/config
+    regexp: "^SELINUX="
+    line: "SELINUX=disabled"
+
+- name: Disable selinux set setenforce to 0.
+  command: "setenforce 0"
+  ignore_errors: yes

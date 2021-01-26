@@ -1,0 +1,15 @@
+---
+- name: restart logstash_indexer_api-access
+  shell: docker restart logstash_indexer_api-access
+
+- name: restart logstash_indexer_app
+  shell: docker restart logstash_indexer_app
+
+- name: restart logstash_indexer_rpc-access
+  shell: docker restart logstash_indexer_rpc-access 
+
+- name: restart logstash_indexer_nginx
+  shell: docker restart logstash_indexer_nginx
+
+- name: restart logstash_indexer_monitor
+  shell: docker restart logstash_indexer_monitor

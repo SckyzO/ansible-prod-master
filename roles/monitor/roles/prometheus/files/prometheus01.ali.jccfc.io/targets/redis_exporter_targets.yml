@@ -1,0 +1,6 @@
+- labels:
+    env: prod
+    idc: ali
+    redis: loan-prod
+  targets:
+    - 172.16.4.110:9121

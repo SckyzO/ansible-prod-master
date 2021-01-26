@@ -1,0 +1,21 @@
+{
+    "exec-opts":[
+        "native.cgroupdriver=cgroupfs",
+        "MountFlags=slave",
+        "log-opt max-size=10m",
+        "log-opt max-file=3"
+    ],
+    "graph":"/opt/docker",
+    "storage-driver":"overlay2",
+    "insecure-registries":[
+        "harbor.corp.triThirty.com"
+    ],
+    "registry-mirrors":[
+        "https://xu0kv3y6.mirror.aliyuncs.com"
+    ],
+    "hosts":[
+        "tcp://0.0.0.0:4243",
+        "unix:///var/run/docker.sock"
+    ]
+}
+

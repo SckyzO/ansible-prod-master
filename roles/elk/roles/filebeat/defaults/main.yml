@@ -1,0 +1,4 @@
+---
+filebeat_package_path: /srv/ansible/files/filebeat
+filebeat_package_name: filebeat-7.2.0-x86_64.rpm
+

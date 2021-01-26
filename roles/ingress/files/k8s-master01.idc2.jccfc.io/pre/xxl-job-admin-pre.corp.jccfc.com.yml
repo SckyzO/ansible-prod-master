@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: xxl-job-admin-pre-corp
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: xxl-job-admin-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: xxl-job-admin
+          servicePort: 8080
+

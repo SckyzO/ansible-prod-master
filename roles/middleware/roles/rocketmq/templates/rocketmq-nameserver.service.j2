@@ -1,0 +1,14 @@
+[Unit]
+Description=Rocketmq Nameserver
+After=syslog.target network.target 
+
+[Service]
+Type=simple
+User={{ rocketmq_user }}
+Group={{ rocketmq_group }}
+
+ExecStart={{ rocketmq_unarchive_path }}/bin/mqnamesrv -c {{ rocketmq_unarchive_path }}/conf/nameserver.conf
+ExecStop={{ rocketmq_unarchive_path }}/bin/mqshutdown namesrv
+
+[Install]
+WantedBy=multi-user.target

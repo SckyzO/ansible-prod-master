@@ -1,0 +1,21 @@
+- name: Ensure monitoring namespace exists.
+  shell: "kubectl create namespace monitoring"
+  ignore_errors: True 
+
+- name: Ensure kube-state-metrics directory exists.
+  file:
+    path: "{{ kube_state_metrics_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Ensure kube-state-metrics yaml files exist.
+  copy:
+    src: "kubernetes"
+    dest: "{{ kube_state_metrics_directory }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    Apply kube-state-metrics yaml

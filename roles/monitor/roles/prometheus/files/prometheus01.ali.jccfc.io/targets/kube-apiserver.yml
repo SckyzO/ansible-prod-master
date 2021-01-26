@@ -1,0 +1,7 @@
+- labels:
+    env: dev
+    idc: ali
+  targets:
+    - k8s-master01.ali.triThirty.io:6443
+    - k8s-master02.ali.triThirty.io:6443
+    - k8s-master03.ali.triThirty.io:6443

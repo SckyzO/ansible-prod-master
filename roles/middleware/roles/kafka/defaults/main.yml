@@ -1,0 +1,7 @@
+---
+kafka_package_name: kafka_2.12-2.3.0.tgz
+kafka_unarchive_path: kafka_2.12-2.3.0
+kafka_data_path: /opt/data/kafka
+zookeeper_connect: 192.168.114.14:12181,192.168.114.15:12181,192.168.114.16:12181
+kafka_heap_opts: "-Xmx2G -Xms2G" # 2gb
+kafka_opts: "-javaagent:/opt/monitor/jmx-exporter/jmx_prometheus_javaagent-0.11.0.jar=7071:/opt/monitor/jmx-exporter/kafka.yml"

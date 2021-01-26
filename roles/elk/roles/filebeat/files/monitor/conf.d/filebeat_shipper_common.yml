@@ -1,0 +1,15 @@
+- type: log
+  enabled: true
+  tail_files: true
+  close_*: true
+  clean_*: true
+  encoding: utf-8
+  paths:
+    - /opt/monitor/alertmanager-log-webhook/logs/alerts.log
+  scan_frequency: 10s
+  #multiline.pattern: '^\d{4}\-\d{2}\-\d{2}'
+  #multiline.negate: true
+  #multiline.match: after
+  fields:
+    logtype: alerts
+

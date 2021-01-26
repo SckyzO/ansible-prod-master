@@ -1,0 +1,13 @@
+groups:
+- name: commonAlerts
+  rules:
+  # Error
+  - alert: ExporterUnreachable
+    expr: up{job!="kubelet", job!="apiserver",routername=""} == 0
+    for: 1m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "Job {{ $labels.job }} is unreachable"
+      description: "Job {{ $labels.job }} has been unreachable for more than 1 minute"

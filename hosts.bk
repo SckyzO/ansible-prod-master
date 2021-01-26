@@ -1,0 +1,87 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+[ansible]
+172.16.4.54 hostname=ansible.ali.triThirty.io env=ali
+[harbor]
+172.16.4.56 hostname=harbor.ali.triThirty.io env=ali
+[dns]
+172.16.4.58 hostname=dns05.ali.triThirty.io env=ali
+172.16.4.59 hostname=dns06.ali.triThirty.io env=ali
+[k8s-master]
+172.16.3.97 hostname=k8s-master01.ali.triThirty.io env=ali
+172.16.3.98 hostname=k8s-master02.ali.triThirty.io env=ali
+172.16.3.99 hostname=k8s-master03.ali.triThirty.io env=ali
+[k8s-node]
+172.16.3.100 hostname=k8s-node01.ali.triThirty.io env=ali
+172.16.3.101 hostname=k8s-node02.ali.triThirty.io env=ali
+172.16.3.102 hostname=k8s-node03.ali.triThirty.io env=ali
+[ingress-ali-prod]
+172.16.3.97 hostname=k8s-master01.ali.triThirty.io env=ali
+[zookeeper]
+172.16.3.105 hostname=zookeeper01.ali.triThirty.io env=ali srvid=1
+172.16.3.106 hostname=zookeeper02.ali.triThirty.io env=ali srvid=2
+172.16.3.107 hostname=zookeeper03.ali.triThirty.io env=ali srvid=3
+[prometheus]
+172.16.4.110 hostname=prometheus01-prod.ali.triThirty.io env=ali
+172.16.4.111 hostname=prometheus02.ali.triThirty.io env=ali
+[kafka-log]
+172.16.4.75 hostname=kafka01.ali.triThirty.io env=ali srvid=1
+172.16.4.76 hostname=kafka02.ali.triThirty.io env=ali srvid=2
+172.16.4.77 hostname=kafka03.ali.triThirty.io env=ali srvid=3
+[es]
+172.16.4.161 hostname=es01-prod.ali.triThirty.io env=ali
+172.16.4.162 hostname=es02-prod.ali.triThirty.io env=ali
+172.16.4.163 hostname=es03-prod.ali.triThirty.io env=ali
+[es-gxwl]
+172.16.4.87 hostname=es04-prod.ali.triThirty.io env=ali
+172.16.4.88 hostname=es05-prod.ali.triThirty.io env=ali
+172.16.4.89 hostname=es06-prod.ali.triThirty.io env=ali
+[azkaban]
+172.16.4.90 hostname=azkaban-prod.ali.triThirty.io env=ali
+[neo4j]
+172.16.4.91 hostname=neo4j-prod.aliyun.triThirty.io env=ali
+
+[logstash]
+172.16.4.160 hostname=logstash01-prod.ali.triThirty.io env=ali
+[rocketmq]
+172.16.4.70 hostname=rocketmq01.ali.triThirty.io env=ali
+172.16.4.71 hostname=rocketmq02.ali.triThirty.io env=ali
+172.16.4.72 hostname=rocketmq03.ali.triThirty.io env=ali
+[nginx]
+172.16.4.73 hostname=nginx01.ali.triThirty.io env=ali
+172.16.4.74 hostname=nginx02.ali.triThirty.io env=ali
+[apollo]
+172.16.4.78  hostname=apollo.ali.triThirty.io env=ali
+[nexus]
+172.16.4.83  hostname=nexus.ali.triThirty.io env=ali
+[kettle]
+172.16.3.109  hostname=kettle01.ali.triThirty.io env=ali
+[logs-back]
+172.16.3.10  hostname=logs01.ali.triThirty.io env=ali
+
+# cdh nginx
+[nginx_master]
+10.10.8.117
+[nginx_backup]
+10.10.8.118
+[bridge]
+10.10.1.188
+10.10.1.189
+[jumpserver]
+10.10.8.254
+[rac]
+10.10.8.42
+10.10.8.43
+10.10.8.44
+10.10.8.45
+10.10.8.46
+10.10.8.48

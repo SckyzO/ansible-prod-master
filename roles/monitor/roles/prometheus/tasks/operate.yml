@@ -1,0 +1,32 @@
+---
+- name: Started prometheus contailner.
+  docker_container:
+    name: "{{ prometheus_container_name }}"
+    state: started
+  when: operate == "start"
+
+#- name: Stop prometheus contailner.
+#  docker_container:
+#    name: "{{ prometheus_container_name }}"
+#    state: stopped
+#  when: operate == "stop"
+  
+- name: Stop prometheus config.
+  uri:
+    url: "{{ prometheus_quit_url }}"
+    method: POST
+    status_code: 200
+  when: operate == "stop"
+
+- name: Reload prometheus config.
+  uri:
+    url: "{{ prometheus_reload_url }}"
+    method: POST
+    status_code: 200
+  when: operate == "reload"
+
+- name: Delete prometheus contailner.
+  docker_container:
+    name: "{{ prometheus_container_name }}"
+    state: absent
+  when: operate == "delete"

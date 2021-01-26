@@ -1,0 +1,7 @@
+---
+- include: setup-jdk8-RedHat.yml
+  when: ansible_os_family == "RedHat" and java_version|int == 8
+
+- include: setup-jdk12-RedHat.yml
+  when: ansible_os_family == "RedHat" and java_version|int == 12 or
+        ansible_os_family == "RedHat" and java_version is undefined

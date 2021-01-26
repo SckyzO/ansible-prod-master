@@ -1,0 +1,11 @@
+---
+- name: Add jdk package {{ jdk12_package_name }}.
+  copy:
+    src: /srv/ansible/files/jdk/{{ jdk12_package_name }}
+    dest: /tmp/{{ jdk12_package_name }}
+    mode: 0755
+
+- name: Install jdk {{ jdk12_package_name }}
+  package:
+    name: /tmp/{{ jdk12_package_name }}
+    state: present

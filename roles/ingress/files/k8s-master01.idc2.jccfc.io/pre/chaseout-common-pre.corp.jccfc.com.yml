@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: chaseout-common-pre
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/affinity: "cookie"
+spec:
+  rules:
+  - host: chaseout-common-pre.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: chaseout-common
+          servicePort: 8080
+

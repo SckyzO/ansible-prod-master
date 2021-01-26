@@ -1,0 +1,5 @@
+---
+ingress_source_config_path: "{{ ingress_conf_path }}"
+ingress_conf_path: files/ingress-prod.ali.triThirty.io
+project: ingress-prod.ali.triThirty.io
+dest_config_path: /root/jc-apps-deployment/

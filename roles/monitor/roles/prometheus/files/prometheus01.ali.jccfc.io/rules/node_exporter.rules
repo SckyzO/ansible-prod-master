@@ -1,0 +1,95 @@
+groups:
+- name: nodeExporterAlerts
+  rules:
+  # Error
+  - alert: SystemReboot
+    expr: time() - node_boot_time_seconds > 0 and time() - node_boot_time_seconds < 300
+    for: 1m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "System has been restarted"
+      description: "Instance {{ $labels.instance }} has been restarted"
+  #- alert: SystemTimeError
+  #  expr: node_timex_maxerror_seconds > 1
+  #  for: 1m
+  #  labels:
+  #    env: "{{ $labels.env }}"
+  #    severity: Error
+  #  annotations:
+  #    summary: "System time error"
+  #    description: "Instance {{ $labels.instance }} system time error from current."
+  - alert: DiskUsageHigh
+    expr: round(100*sum(node_filesystem_free_bytes{fstype=~"ext4|xfs",mountpoint!~"/var/.*"}/node_filesystem_size_bytes{fstype=~"ext4|xfs",mountpoint!~"/var/.*"}) without (device,fstype),0.1)<15
+    for: 1m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "Instance free disk space less than 15%"
+      description: "Disk free space on '{{ $labels.mountpoint }}' is less than 15% (current: {{ $value }}%)"
+  - alert: K8sNodeDiskUsageHigh
+    expr: round(100*sum(node_filesystem_free_bytes{fstype=~"ext4|xfs",mountpoint!~"/var/.*",hostname=~"k8s.*"}/node_filesystem_size_bytes{fstype=~"ext4|xfs",mountpoint!~"/var/.*",hostname=~"k8s.*"}) without (device,fstype),0.1)<20
+    for: 1m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Error
+    annotations:
+      summary: "Instance free disk space less than 20%, the pods have the possibility to be evicted."
+      description: "Disk free space on '{{ $labels.mountpoint }}' is less than 20% (current: {{ $value }}%)"
+  # Warning
+  - alert: CpuUsageHigh
+    expr: round(100*sum(avg without (cpu)(irate(node_cpu_seconds_total{mode!='idle'}[5m]))) by (instance,env),0.1)>90
+    for: 5m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "Instance CPU usgae high"
+      description: "CPU usage above 90% more than 5 minutes (current: {{ $value }}%)"
+  - alert: MemoryUsageHigh
+    expr: round(100*(1-node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes),0.1)>95
+    for: 5m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "Instance Memory usgae high"
+      description: "Memory usage above 95% more than 5 minutes (current: {{ $value }}%)"
+  #- alert: SystemLoadHigh
+  #  expr: node_load5 > 0.6
+  #  for: 5m
+  #  labels:
+  #    env: "{{ $labels.env }}"
+  #    severity: Warning
+  #  annotations:
+  #    summary: "Instance under high load (5 min average))"
+  #    description: "Instance system under high load for more than 5 minutes(current: {{ $value }})"
+  - alert: NetworkIncomingHigh
+    expr: round(irate(node_network_receive_bytes_total{device!~'tap.*|veth.*|br.*|docker.*|virbr*|lo*'}[5m])*8/1024^2,0.1)>800
+    for: 5m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "Instance incoming network traffic higher than 800Mbps"
+      description: "Incoming network traffic on '{{ $labels.device }}' higher than 800Mbps (current: {{ $value }})"
+  - alert: NetworkOutgoingHigh
+    expr: round(irate(node_network_transmit_bytes_total{device!~'tap.*|veth.*|br.*|docker.*|virbr*|lo*'}[5m])*8/1024^2,0.1)>800
+    for: 5m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "Instance outgoing network traffic higher than 800Mbps"
+      description: "Outgoing network traffic on '{{ $labels.device }}' higher than 800Mbps (current: {{ $value }})"
+  - alert: TooManyOpenFileDescriptors
+    expr: round(100*(process_open_fds/process_max_fds),0.1)>95
+    for: 5m
+    labels:
+      env: "{{ $labels.env }}"
+      severity: Warning
+    annotations:
+      summary: "Instance too many open file descriptors"
+      description: "Instance used {{ $value }}% of the available file/socket descriptors"

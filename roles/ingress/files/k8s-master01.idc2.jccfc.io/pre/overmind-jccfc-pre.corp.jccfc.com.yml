@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: overmind-triThirty
+  namespace: triThirty-pre
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: overmind-triThirty-pre.corp.triThirty.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: overmind-triThirty
+          servicePort: 8080

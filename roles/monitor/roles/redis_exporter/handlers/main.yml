@@ -1,0 +1,4 @@
+---
+- name: restart redis_exporter
+  shell: docker restart redis_exporter
+

@@ -1,0 +1,8 @@
+---
+- name: Delete kube-state-metrics deployment
+  command: 'kubectl delete -f {{ kube_state_metrics_yaml_files }}'
+
+- name: Delete kube-state-metrics yaml files
+  file:
+    path: "{{ kube_state_metrics_directory }}"
+    state: absent

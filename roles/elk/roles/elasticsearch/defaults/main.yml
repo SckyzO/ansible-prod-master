@@ -1,0 +1,11 @@
+---
+elasticsearch_package_name: elasticsearch-7.2.0-x86_64.rpm
+#elasticsearch_package_name: elasticsearch-6.6.2.rpm
+elasticsearch_cluster_name: es-prod
+elasticsearch_data_path: /opt/elasticsearch/data
+elasticsearch_log_path: /opt/elasticsearch/log
+elasticsearch_http_port: 9200
+elasticsearch_discovery_hosts: '["192.168.114.11", "192.168.114.12", "192.168.114.13", "192.168.114.18", "192.168.114.19"]' 
+elasticsearch_master_nodes: '["192.168.114.11", "192.168.114.12", "192.168.114.13", "192.168.114.18", "192.168.114.19"]' 
+#discovery.zen.ping.unicast.hosts: '["172.16.4.87", "172.16.4.88", "172.16.4.89"]'
+elasticsearch_heap_size: 4 # gb

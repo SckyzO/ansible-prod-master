@@ -1,0 +1,8 @@
+---
+- name: Delete kubelet-metrics deployment
+  command: 'kubectl delete -f {{ kubelet_metrics_directory }}'
+
+- name: Delete kubelet-metrics yaml files
+  file:
+    path: "{{ kubelet_metrics_directory }}"
+    state: absent

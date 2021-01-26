@@ -1,0 +1,7 @@
+---
+#
+# Elasticsearch
+#
+- hosts: "{{ host }}"
+  roles:
+    - elasticsearch

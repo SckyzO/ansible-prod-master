@@ -1,0 +1,9 @@
+---
+- include: install.yml
+  when: operate == "install"
+
+- include: delete.yml
+  when: operate == "delete"
+
+- include: apply.yml
+  when: operate == "apply"

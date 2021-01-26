@@ -1,0 +1,6 @@
+- labels:
+    env: prod
+    idc: ali
+    cluster: kube-prod
+  targets:
+    - k8s-master01.ali.triThirty.io:30101

@@ -1,0 +1,6 @@
+---
+- include: install.yml
+  when: operate == "install"
+
+- include: operate.yml
+

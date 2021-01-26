@@ -1,0 +1,19 @@
+---
+- name: Started cadvisor contailner.
+  docker_container:
+    name: "{{ cadvisor_container_name }}"
+    state: started
+  when: operate == "start"
+
+- name: Stop cadvisor contailner.
+  docker_container:
+    name: "{{ cadvisor_container_name }}"
+    state: stopped
+  when: operate == "stop"
+  
+- name: Delete cadvisor contailner.
+  docker_container:
+    name: "{{ cadvisor_container_name }}"
+    state: absent
+  when: operate == "delete"
+

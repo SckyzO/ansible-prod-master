@@ -1,0 +1,7 @@
+---
+- name: reload alertmanager
+  uri:
+    url: "{{ alertmanager_reload_url }}"
+    method: POST
+    status_code: 200
+

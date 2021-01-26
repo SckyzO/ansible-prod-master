@@ -1,0 +1,10 @@
+---
+- name: Manage ingress  config files.
+  synchronize:
+    src: "{{ ingress_source_config_path }}"
+    dest: "{{ dest_config_path }}"
+    mode: push
+    recursive: yes
+    delete: yes
+- name: show debug info
+  debug: var=ingress_source_config_path,dest_config_path

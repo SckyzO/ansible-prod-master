@@ -1,0 +1,13 @@
+---
+rabbitmq_env: pre
+rabbitmq_image_url: rabbitmq:3.8.0-management-alpine
+rabbitmq_container_name: rabbitmq_{{ rabbitmq_env }}
+rabbitmq_base_path: /opt/{{ rabbitmq_container_name }}
+rabbitmq_manage_port: "15675"
+rabbitmq_node_port: "5675"
+rabbitmq_dist_port: "25675"
+rabbitmq_erl_epmd_port: "4399"
+rabbitmq_user: "100"
+rabbitmq_group: "101"
+rabbitmq_erlang_cookie: SWQOKODSQAXRPCQNMEQG
+rabbitmq_vm_memory_high_watermark: "4096MiB"

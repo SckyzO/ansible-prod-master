@@ -1,0 +1,32 @@
+---
+- name: Ensures Filebeat conf.d dir exists.
+  file:
+    path: /etc/filebeat/conf.d
+    state: directory
+    mode: 0755
+
+- name: Manage filebeat configs.
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: '{{ tag }}/filebeat.yml', dest: '/etc/filebeat/filebeat.yml' }
+    - { src: '{{ tag }}/conf.d/filebeat_shipper_common.yml', dest: '/etc/filebeat/conf.d/filebeat_shipper_common.yml' }
+  notify: restart filebeat
+  when: tag is defined
+
+- name: Manage filebeat configs.
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: 'app/filebeat.yml', dest: '/etc/filebeat/filebeat.yml' }
+    - { src: 'app/conf.d/filebeat_shipper_common.yml', dest: '/etc/filebeat/conf.d/filebeat_shipper_common.yml' }
+  notify: restart filebeat
+  when: tag is undefined

@@ -1,0 +1,13 @@
+---
+- name: Delete mongodb container.
+  docker_container:
+    name: "{{ mongodb_container_name }}"
+    state: absent
+
+- name: Delete mongodb data.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ mongodb_base_path }}"
+

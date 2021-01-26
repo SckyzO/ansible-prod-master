@@ -1,0 +1,16 @@
+---
+#logstash_package_name: logstash-7.2.0
+#logstash_file_path: /srv/ansible/files/logstash/{{ logstash_package_name }}.tar.gz
+#
+logstash_image_url: docker.elastic.co/logstash/logstash:7.2.0
+logstash_path: /opt/logstash
+logstash_user: '1000'
+logstash_group: '1000'
+logstash_conf_path: /opt/logstash/config
+logstash_pipeline_path: /opt/logstash/pipeline
+
+logstash_config_file_path: /etc/ansible/roles/elk/roles/logstash/files/config
+#logstash_pipeline_file_path: /etc/ansible/roles/elk/roles/logstash/files/pipeline
+
+kafka_servers: "192.168.114.14:9092,192.168.114.15:9092,192.168.114.16:9092"
+elasticsearch_servers: '["192.168.114.11:9200", "192.168.114.12:9200", "192.168.114.13:9200"]'

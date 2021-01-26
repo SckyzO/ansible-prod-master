@@ -1,0 +1,15 @@
+- labels:
+    idc: ali
+    env: prod
+    app: blackbox
+  targets:
+    - https://grafana.corp.triThirty.com
+    - https://kibana.corp.triThirty.com
+    - https://credit.corp.triThirty.com/api/v1/checkHealth
+    - https://api-web.triThirty.com/api/v1/checkHealth
+    - https://bridge.triThirty.com/favicon.ico
+    - https://apollo.corp.triThirty.com
+    - https://coreout-api.triThirty.com/swagger-ui.html
+    - https://haircut-pre.triThirty.com//index.html
+    - https://haircut-pre.corp.triThirty.com//index.html
+    #- http://10.10.8.45:9528/actuator/health

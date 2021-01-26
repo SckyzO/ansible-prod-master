@@ -1,0 +1,54 @@
+---
+- name: Remove yum.repos.d.
+  shell:
+    cmd: rm -f /etc/yum.repos.d/*
+
+- name: Set /etc/yum.repos.d.
+  copy:
+    src: '{{ item }}'
+    dest: '/etc/yum.repos.d/{{ item }}'
+    mode: 0644
+  with_items:
+    - Centos-7.repo
+    - epel-7.repo
+
+- name: Set /etc/yum.conf.
+  copy:
+    src: '{{ item }}'
+    dest: '/etc/{{ item }}'
+    mode: 0644
+  with_items:
+    - yum.conf
+
+#- name: Yum makecache.
+#  shell:
+#    cmd: yum clean all && yum makecache
+#
+- name: Add epel-release repo.
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Update all packages.
+  yum:
+    name: '*'
+    state: latest
+    exclude: kernel*
+
+- name: Install packages useful.
+  yum:
+    name:
+      - vim-enhanced
+      - python-pip
+      - net-tools
+      - telnet
+      #- htop
+      - unzip
+      - tree
+      - bash-completion-extras
+      - bash-argsparse
+      - bash-completion
+      - bash-doc
+      - nfs-utils
+    state: present
+

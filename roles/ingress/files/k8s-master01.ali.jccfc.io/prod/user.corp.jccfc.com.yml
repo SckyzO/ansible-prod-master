@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: user
+  namespace: triThirty-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - user.corp.triThirty.com
+    secretName: corp.triThirty.com
+  rules:
+  - host: user.corp.triThirty.com
+    http:
+      paths:
+      - backend:
+          serviceName: user
+          servicePort: 8080
